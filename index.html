@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DEV NOX INC — Developer Profile</title>
+  <meta name="description" content="DEV NOX INC developer profile and portfolio.">
+  <style>
+    :root{--bg:#070812;--panel:#111426;--text:#f7f7fb;--muted:#a9aec3;--purple:#9b6cff;--cyan:#61e7ff;--line:#292e48}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;color:var(--text);font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif;background:radial-gradient(circle at 10% 0%,#30205b 0,transparent 32rem),radial-gradient(circle at 90% 70%,#123e50 0,transparent 28rem),var(--bg);line-height:1.6}
+    .wrap{width:min(1060px,calc(100% - 36px));margin:auto}.nav{display:flex;justify-content:space-between;align-items:center;padding:26px 0;border-bottom:1px solid var(--line)}.brand{font-weight:900;letter-spacing:.08em;color:var(--text);text-decoration:none}.brand span{color:var(--purple)}.nav a{color:var(--muted);text-decoration:none;margin-left:24px;font-size:.92rem}.nav a:hover{color:var(--cyan)}
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:70px;align-items:center;padding:100px 0 90px}.eyebrow{color:var(--cyan);font-weight:700;letter-spacing:.15em;text-transform:uppercase;font-size:.78rem}.hero h1{font-size:clamp(3rem,8vw,6.5rem);line-height:.95;letter-spacing:-.08em;margin:18px 0}.hero h1 em{font-style:normal;color:var(--purple)}.hero p{color:var(--muted);font-size:1.12rem;max-width:620px}.buttons{display:flex;gap:14px;flex-wrap:wrap;margin-top:30px}.btn{display:inline-block;padding:12px 19px;border-radius:10px;text-decoration:none;color:var(--text);border:1px solid var(--line);background:#171b31}.btn.primary{border:0;background:linear-gradient(110deg,var(--purple),#6d55df)}.btn:hover{transform:translateY(-2px);filter:brightness(1.12)}
+    .avatar{width:min(310px,70vw);aspect-ratio:1;margin:auto;display:grid;place-items:center;border-radius:38% 62% 55% 45%;background:linear-gradient(145deg,var(--purple),var(--cyan));box-shadow:0 0 0 18px #ffffff08,0 25px 80px #0008;transform:rotate(-7deg)}.avatar b{font-size:clamp(4rem,10vw,7rem);letter-spacing:-.1em;transform:rotate(7deg)}
+    section{padding:55px 0}.section-title{font-size:2rem;margin:0 0 25px;letter-spacing:-.04em}.muted{color:var(--muted)}.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}.card{padding:24px;border:1px solid var(--line);border-radius:18px;background:#ffffff08}.card strong{font-size:1.7rem;color:var(--cyan);display:block}.card h3{margin:0 0 8px}.card p{color:var(--muted);margin:0}.skills{display:flex;flex-wrap:wrap;gap:10px}.skill{padding:9px 14px;border:1px solid var(--line);border-radius:999px;color:#dfe2f1;background:#ffffff08}.project{display:flex;justify-content:space-between;gap:24px;align-items:center;margin:14px 0}.project h3{margin:0 0 5px}.project p{margin:0;color:var(--muted)}.project a{color:var(--cyan);white-space:nowrap;text-decoration:none}footer{border-top:1px solid var(--line);padding:28px 0 45px;color:var(--muted);display:flex;justify-content:space-between;gap:15px;flex-wrap:wrap}
+    @media(max-width:760px){.nav{align-items:flex-start;gap:16px;flex-direction:column}.nav a{margin:0 18px 0 0}.hero{grid-template-columns:1fr;padding:65px 0}.hero h1{font-size:clamp(3.5rem,17vw,6rem)}.cards{grid-template-columns:1fr}.project{align-items:flex-start;flex-direction:column}.project a{white-space:normal}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <nav class="nav"><a class="brand" href="#top">DEV <span>NOX</span> INC</a><div><a href="#about">About</a><a href="#work">Work</a><a href="#contact">Contact</a></div></nav>
+    <main id="top">
+      <section class="hero" id="about"><div><div class="eyebrow">Independent developer · Digital creator</div><h1>Build bold.<br><em>Stay curious.</em></h1><p>DEV NOX INC creates polished web experiences, automation tools, and practical digital products with a focus on clarity, performance, and strong visual identity.</p><div class="buttons"><a class="btn primary" href="#work">Explore work</a><a class="btn" href="mailto:hello@devnox.example">Get in touch</a></div></div><div class="avatar" aria-label="DEV NOX initials"><b>DN</b></div></section>
+      <section><div class="cards"><div class="card"><strong>50+</strong><p>Projects shipped</p></div><div class="card"><strong>8+</strong><p>Years learning and building</p></div><div class="card"><strong>∞</strong><p>Ideas worth exploring</p></div></div></section>
+      <section><h2 class="section-title">What I work with</h2><div class="skills"><span class="skill">JavaScript</span><span class="skill">Node.js</span><span class="skill">React</span><span class="skill">Python</span><span class="skill">UI / UX</span><span class="skill">APIs</span><span class="skill">Automation</span><span class="skill">Open Source</span></div></section>
+      <section id="work"><h2 class="section-title">Selected work</h2><div class="card project"><div><h3>Automation Suite</h3><p>Tools that simplify repetitive workflows and connect services cleanly.</p></div><a href="mailto:hello@devnox.example?subject=Automation%20Suite">Discuss project →</a></div><div class="card project"><div><h3>Premium Dashboard UI</h3><p>A responsive dashboard concept built around useful data and effortless navigation.</p></div><a href="mailto:hello@devnox.example?subject=Dashboard%20UI">Discuss project →</a></div><div class="card project"><div><h3>Developer Tools</h3><p>Small, focused utilities designed to make everyday development faster.</p></div><a href="mailto:hello@devnox.example?subject=Developer%20Tools">Discuss project →</a></div></section>
+    </main>
+    <footer id="contact"><span>© 2026 DEV NOX INC</span><span><a href="https://github.com/Nox-Primeee" style="color:var(--cyan)">GitHub</a> · Built with intention.</span></footer>
+  </div>
+</body>
+</html>
