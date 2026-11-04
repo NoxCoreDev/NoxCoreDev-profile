@@ -6,7 +6,7 @@ import { articles } from "../data/articles";
 
 export default function Article() {
   const { slug } = useParams();
-  const { t } = usePreferences();
+  const { language, t } = usePreferences();
   const article = articles.find((item) => item.slug === slug);
 
   if (!article) {
@@ -24,15 +24,17 @@ export default function Article() {
     );
   }
 
+  const localized = article[language] || article.fr;
+
   return (
     <div className="min-h-screen bg-white dark:bg-slate-950">
       <article className="max-w-3xl mx-auto px-6 py-16">
-        <p className="text-sm text-primary font-semibold">{article.category}</p>
-        <h1 className="text-3xl md:text-4xl font-extrabold mt-2 mb-6">{article.title}</h1>
+        <p className="text-sm text-primary font-semibold">{localized.category}</p>
+        <h1 className="text-3xl md:text-4xl font-extrabold mt-2 mb-6">{localized.title}</h1>
         {article.image && (
-          <img src={article.image} alt={article.title} className="rounded-xl mb-8 w-full object-cover" />
+          <img src={article.image} alt={localized.title} className="rounded-xl mb-8 w-full object-cover" />
         )}
-        <div className="prose dark:prose-invert max-w-none">{article.content}</div>
+        <div className="prose dark:prose-invert max-w-none">{localized.content}</div>
 
         <Link to="/blog" className="inline-block mt-10 text-primary hover:underline font-semibold">
           {t("article.backToBlog")}

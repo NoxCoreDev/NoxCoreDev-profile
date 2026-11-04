@@ -1,14 +1,13 @@
 import React, { useEffect, useRef } from "react";
 import ScrollReveal from "scrollreveal";
-import { useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import Footer from "../components/Footer";
 import { usePreferences } from "../context/PreferencesContext";
 import { articles } from "../data/articles";
 
 export default function Blog() {
-  const navigate = useNavigate();
   const refs = useRef([]);
-  const { t } = usePreferences();
+  const { language, t } = usePreferences();
 
   useEffect(() => {
     ScrollReveal().reveal(refs.current, {
@@ -34,18 +33,24 @@ export default function Blog() {
           </div>
         ) : (
           <div className="grid gap-6">
-            {articles.map((article, index) => (
-              <div
-                key={article.id}
-                ref={(element) => (refs.current[index] = element)}
-                onClick={() => navigate(`/blog/${article.slug}`)}
-                className="cursor-pointer bg-white dark:bg-slate-900 p-6 rounded-3xl shadow hover:shadow-xl transition"
-              >
-                <img src={article.image} className="rounded-xl mb-4 w-full h-48 object-cover" alt={article.title} />
-                <h2 className="text-2xl font-bold">{article.title}</h2>
-                <p className="text-slate-500">{article.excerpt}</p>
-              </div>
-            ))}
+            {articles.map((article, index) => {
+              const localized = article[language] || article.fr;
+              return (
+                <Link
+                  key={article.id}
+                  ref={(element) => (refs.current[index] = element)}
+                  to={`/blog/${article.slug}`}
+                  className="block bg-white dark:bg-slate-900 p-6 rounded-3xl shadow hover:shadow-xl focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary transition"
+                >
+                  {article.image && (
+                    <img src={article.image} className="rounded-xl mb-4 w-full h-48 object-cover" alt={localized.title} />
+                  )}
+                  <p className="text-sm font-semibold text-primary mb-2">{localized.category}</p>
+                  <h2 className="text-2xl font-bold text-slate-900 dark:text-white">{localized.title}</h2>
+                  <p className="mt-2 text-slate-600 dark:text-slate-300">{localized.excerpt}</p>
+                </Link>
+              );
+            })}
           </div>
         )}
       </div>
