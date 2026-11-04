@@ -1,6 +1,9 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import { usePreferences } from "../context/PreferencesContext";
 
 export default function Footer() {
+  const { t } = usePreferences();
   const socials = [
     { name: "GitHub", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/github.svg", url: "https://github.com/NoxCoreDev" },
     { name: "LinkedIn", icon: "https://cdn.jsdelivr.net/npm/simple-icons@v9/icons/linkedin.svg", url: "https://www.linkedin.com/in/NoxCoreDev" },
@@ -13,10 +16,10 @@ export default function Footer() {
   ];
 
   const quickLinks = [
-    { name: "Politique de confidentialité", url: "/privacy-policy" },
-    { name: "Conditions d'utilisation", url: "/terms" },
-    { name: "Mentions légales", url: "/legal" },
-    { name: "Contact", url: "/contact" },
+    { name: t("footer.privacy"), url: "/privacy-policy" },
+    { name: t("footer.terms"), url: "/terms" },
+    { name: t("footer.legal"), url: "/legal" },
+    { name: t("footer.contact"), url: "/contact" },
   ];
 
   return (
@@ -25,40 +28,37 @@ export default function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-10 mb-10">
           <div className="flex flex-col gap-4">
             <h2 className="text-xl font-bold text-slate-900 dark:text-white">NoxCoreDev</h2>
-            <p className="text-sm leading-relaxed max-w-xs">
-              Développeur passionné, Automatisation, DevOps, Web, App &amp; AI Developer.
-              Autodidacte, toujours en train d'apprendre.
-            </p>
+            <p className="text-sm leading-relaxed max-w-xs">{t("footer.description")}</p>
           </div>
 
           <div className="flex flex-col gap-4">
             <h3 className="font-semibold text-slate-800 dark:text-slate-100 uppercase text-xs tracking-wider">
-              Navigation
+              {t("footer.navigation")}
             </h3>
             <nav className="flex flex-col gap-2">
               {quickLinks.map((link) => (
-                <a key={link.name} href={link.url} className="text-sm hover:text-primary transition-colors w-fit">
+                <Link key={link.url} to={link.url} className="text-sm hover:text-primary transition-colors w-fit">
                   {link.name}
-                </a>
+                </Link>
               ))}
             </nav>
           </div>
 
           <div className="flex flex-col gap-4">
             <h3 className="font-semibold text-slate-800 dark:text-slate-100 uppercase text-xs tracking-wider">
-              Me retrouver
+              {t("footer.findMe")}
             </h3>
             <div className="flex flex-wrap gap-4">
-              {socials.map((s) => (
+              {socials.map((social) => (
                 <a
-                  key={s.name}
-                  href={s.url}
+                  key={social.name}
+                  href={social.url}
                   target="_blank"
                   rel="noreferrer"
-                  aria-label={s.name}
+                  aria-label={social.name}
                   className="hover:scale-110 transition-transform duration-200"
                 >
-                  <img src={s.icon} alt={s.name} className="w-5 h-5 dark:invert opacity-80 hover:opacity-100" />
+                  <img src={social.icon} alt="" className="w-5 h-5 dark:invert opacity-80 hover:opacity-100" />
                 </a>
               ))}
             </div>
@@ -66,7 +66,7 @@ export default function Footer() {
         </div>
 
         <div className="border-t border-slate-200 dark:border-slate-800 pt-8 text-center text-xs text-slate-500 dark:text-slate-400">
-          © {new Date().getFullYear()} <strong>NoxCoreDev — Othman</strong>. Tous droits réservés.
+          © {new Date().getFullYear()} <strong>NoxCoreDev — Othman</strong>. {t("footer.rights")}
         </div>
       </div>
     </footer>
