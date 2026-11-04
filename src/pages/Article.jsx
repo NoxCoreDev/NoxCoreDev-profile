@@ -1,22 +1,22 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
 import Footer from "../components/Footer";
+import { usePreferences } from "../context/PreferencesContext";
 import { articles } from "../data/articles";
 
 export default function Article() {
   const { slug } = useParams();
-  const article = articles.find((a) => a.slug === slug);
+  const { t } = usePreferences();
+  const article = articles.find((item) => item.slug === slug);
 
   if (!article) {
     return (
       <div className="min-h-screen bg-white dark:bg-slate-950 flex flex-col">
         <div className="flex-1 max-w-3xl mx-auto px-6 py-24 text-center">
-          <h1 className="text-2xl font-bold mb-4">Article introuvable</h1>
-          <p className="text-slate-500 mb-6">
-            Cet article n'existe pas encore ou a été déplacé.
-          </p>
+          <h1 className="text-2xl font-bold mb-4">{t("article.notFound")}</h1>
+          <p className="text-slate-500 mb-6">{t("article.notFoundDescription")}</p>
           <Link to="/blog" className="text-primary hover:underline font-semibold">
-            ← Retour au blog
+            {t("article.backToBlog")}
           </Link>
         </div>
         <Footer />
@@ -35,7 +35,7 @@ export default function Article() {
         <div className="prose dark:prose-invert max-w-none">{article.content}</div>
 
         <Link to="/blog" className="inline-block mt-10 text-primary hover:underline font-semibold">
-          ← Retour au blog
+          {t("article.backToBlog")}
         </Link>
       </article>
       <Footer />
