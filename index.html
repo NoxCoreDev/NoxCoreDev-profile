@@ -4,6 +4,18 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
+    <script>
+      try {
+        const savedTheme = localStorage.getItem("theme");
+        const useDarkTheme = savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches);
+        document.documentElement.classList.toggle("dark", useDarkTheme);
+        const savedLanguage = localStorage.getItem("language");
+        if (savedLanguage === "fr" || savedLanguage === "en") document.documentElement.lang = savedLanguage;
+      } catch {
+        // Preferences are initialized by the React app if storage is unavailable.
+      }
+    </script>
+
     <title>NoxCoreDev — Othman</title>
 
     <meta
@@ -11,7 +23,7 @@
       content="NoxCoreDev (Othman) — développeur autodidacte en automatisation, DevOps, Web, App & AI. Bots WhatsApp/Telegram, pipelines de déploiement, applications web."
     />
 
-    <link rel="icon" type="image/svg+xml" href="/logo.svg" />
+    <link rel="icon" type="image/svg+xml" href="/logo-icon.svg" />
     <meta name="theme-color" content="#4F5DF5" />
 
     <meta property="og:type" content="website" />
