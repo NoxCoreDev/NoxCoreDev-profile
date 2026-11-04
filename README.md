@@ -1,6 +1,11 @@
 # NoxCoreDev — Portfolio
 
-Portfolio Next.js (App Router) + TypeScript + Tailwind CSS.
+Portfolio basé sur la structure open source **JeanStephTech** (MIT License),
+réécrit avec le contenu, la marque et les projets de NoxCoreDev (Othman).
+Stack : Vite + React + React Router + Tailwind CSS.
+
+Voir `NOTICE.md` pour l'attribution de la base open source, et `LICENSE`
+(à conserver si vous redistribuez ce code).
 
 ## Installation
 
@@ -9,60 +14,51 @@ npm install
 npm run dev
 ```
 
-Ouvrez http://localhost:3000
+Ouvrez http://localhost:5173
 
 ## Déploiement
 
-Le plus simple : [Vercel](https://vercel.com) (créateur de Next.js, gratuit pour les projets persos).
-
 ```bash
-npm install -g vercel
-vercel
+npm run build
 ```
+
+Le dossier `dist/` est prêt pour Vercel, Netlify, ou tout hébergeur statique.
 
 ## Structure
 
 ```
-app/
-  layout.tsx      → polices, metadata SEO
-  page.tsx         → assemble toutes les sections
-  globals.css      → styles globaux, animations
-components/
-  Nav.tsx          → barre de navigation
-  Hero.tsx         → accroche + terminal animé
-  Journey.tsx       → timeline de parcours (2024 → aujourd'hui)
-  Projects.tsx      → vos 4 projets (NOXFREEPANELBOT, NOX-NX, SPIDER NX, ANIMEFLIX)
-  Services.tsx      → 4 services proposés
-  Blog.tsx          → section blog (vide pour l'instant)
-  Contact.tsx       → email, Telegram, WhatsApp
+src/
+  App.jsx              → routes (Accueil, Projets, Blog, Contact, pages légales)
+  components/
+    Navbar.jsx          → navigation + logo
+    Hero.jsx             → accroche
+    Parcours.jsx          → timeline 2024 → aujourd'hui
+    Skills.jsx             → compétences techniques
+    Projects.jsx            → carte projet (image, tags, liens)
+    Footer.jsx                → réseaux sociaux + liens légaux
+  pages/
+    Home.jsx                   → assemble la page d'accueil
+    ProjectsPage.jsx            → tous les projets
+    Blog.jsx                     → liste des articles (vide pour l'instant)
+    Article.jsx                   → détail d'un article
+    legal/                         → Contact, Privacy, Terms, Legal
+  data/
+    projects.js                    → vos 4 projets réels
+    articles.jsx                    → vos articles de blog (à remplir)
+public/
+  logo.svg                          → votre monogramme
 ```
 
-## Pour ajouter un article de blog
+## Ajouter un article de blog
 
-Ouvrez `components/Blog.tsx` et ajoutez un objet dans le tableau `posts` :
+Éditez `src/data/articles.jsx` et ajoutez un objet au tableau `articles`
+(voir l'exemple commenté dans le fichier).
 
-```ts
-const posts: Post[] = [
-  {
-    title: "Automatiser un bot WhatsApp avec Baileys",
-    date: "2026-11-01",
-    url: "/blog/baileys-automation",
-    excerpt: "Comment j'ai construit un système de sessions multiples...",
-  },
-];
-```
+## Ajouter/modifier un projet
 
-(Pour de vraies pages d'articles, créez un dossier `app/blog/[slug]/page.tsx` plus tard.)
+Éditez `src/data/projects.js`.
 
-## Pour ajouter/modifier un projet
+## Couleur principale
 
-Ouvrez `components/Projects.tsx` et éditez le tableau `projects`.
-
-## Couleurs & polices
-
-Définies dans `tailwind.config.ts` :
-- `ink` / `surface` / `surface2` : fonds
-- `accent` / `accent2` : violet (liens, boutons)
-- `ok` : vert (statuts "en ligne")
-- `signal` : ambre (statuts "bêta")
-- Polices : Space Grotesk (titres), Inter (texte), JetBrains Mono (code/labels)
+Définie dans `tailwind.config.js` sous `colors.primary` (actuellement
+`#4F5DF5`). Changez cette valeur pour ajuster toute la teinte du site.
