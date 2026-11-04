@@ -70,6 +70,7 @@ export default function Article() {
               </div>
             </div>
             <ArticleSocialActions
+              key={article.slug}
               article={article}
               title={localized.title}
               description={localized.excerpt}
