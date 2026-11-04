@@ -1,7 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, CalendarDays, Check, Clock3, Share2 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, CalendarDays, Check, Clock3 } from "lucide-react";
 import Footer from "../components/Footer";
+import ArticleSocialActions from "../components/ArticleSocialActions";
 import { blogAuthor, articles, getArticleReadingMinutes } from "../data/articles";
 import { usePreferences } from "../context/PreferencesContext";
 
@@ -16,7 +17,6 @@ function formatDate(value, language) {
 export default function Article() {
   const { slug } = useParams();
   const { language, t } = usePreferences();
-  const [shareFeedback, setShareFeedback] = useState("");
   const article = articles.find((item) => item.slug === slug);
 
   if (!article) {
@@ -34,25 +34,6 @@ export default function Article() {
 
   const localized = article[language] || article.fr;
   const readingMinutes = getArticleReadingMinutes(localized);
-
-  const shareArticle = async () => {
-    const shareData = { title: localized.title, text: localized.excerpt, url: window.location.href };
-    try {
-      if (navigator.share) {
-        await navigator.share(shareData);
-        return;
-      }
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(shareData.url);
-        setShareFeedback(t("blog.linkCopied"));
-        window.setTimeout(() => setShareFeedback(""), 2500);
-        return;
-      }
-      setShareFeedback(t("blog.shareUnavailable"));
-    } catch (error) {
-      if (error.name !== "AbortError") setShareFeedback(t("blog.shareUnavailable"));
-    }
-  };
 
   return (
     <div className="min-h-screen bg-slate-50 transition-colors dark:bg-slate-950">
@@ -86,12 +67,14 @@ export default function Article() {
                 <span className="inline-flex items-center gap-2">
                   <Clock3 size={16} aria-hidden="true" /> {readingMinutes} {t("blog.minutesRead")}
                 </span>
-                <button type="button" onClick={shareArticle} className="inline-flex items-center gap-2 font-semibold text-primary hover:underline">
-                  <Share2 size={16} aria-hidden="true" /> {t("blog.share")}
-                </button>
               </div>
             </div>
-            <p className="min-h-5 text-right text-xs text-primary" aria-live="polite">{shareFeedback}</p>
+            <ArticleSocialActions
+              article={article}
+              title={localized.title}
+              description={localized.excerpt}
+              recordView
+            />
           </header>
 
           <figure className="mb-10 overflow-hidden rounded-2xl border border-slate-200 shadow-lg dark:border-slate-800">

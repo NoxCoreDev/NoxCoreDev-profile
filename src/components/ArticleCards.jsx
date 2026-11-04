@@ -1,6 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { ArrowRight, CalendarDays, Clock3 } from "lucide-react";
+import ArticleSocialActions from "./ArticleSocialActions";
 import { usePreferences } from "../context/PreferencesContext";
 import { getArticleReadingMinutes } from "../data/articles";
 
@@ -77,6 +78,12 @@ export default function ArticleCards({ posts }) {
               >
                 {t("blog.readPost")} <ArrowRight size={16} aria-hidden="true" />
               </Link>
+              <ArticleSocialActions
+                article={article}
+                title={localized.title}
+                description={localized.excerpt}
+                compact
+              />
             </div>
           </article>
         );

@@ -14,6 +14,7 @@ export const articles = [
     slug: "nox-nx-sessions-whatsapp",
     publishedAt: "2026-11-04",
     cover: "/blog/nox-nx-cover.webp",
+    ogImage: "/og/nox-nx-sessions-whatsapp.jpg",
     fr: {
       category: "Bots WhatsApp",
       title: "NOX-NX : penser la gestion de plusieurs sessions WhatsApp",
@@ -126,6 +127,7 @@ export const articles = [
     slug: "spider-nx-code-appairage",
     publishedAt: "2026-11-04",
     cover: "/blog/spider-nx-cover.webp",
+    ogImage: "/og/spider-nx-code-appairage.jpg",
     fr: {
       category: "Automatisation",
       title: "Spider NX : du code d’appairage à une gestion claire des sessions",
@@ -230,6 +232,7 @@ export const articles = [
     slug: "mon-approche-bots-automatisation",
     publishedAt: "2026-11-04",
     cover: "/blog/automation-workflow-cover.webp",
+    ogImage: "/og/mon-approche-bots-automatisation.jpg",
     fr: {
       category: "Développement & DevOps",
       title: "Construire des bots utiles : ma méthode pour passer de l’idée à l’outil",
