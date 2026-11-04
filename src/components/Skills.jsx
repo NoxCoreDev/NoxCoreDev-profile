@@ -1,72 +1,97 @@
 import React, { useEffect } from "react";
 import ScrollReveal from "scrollreveal";
-import {
-  FaNodeJs,
-  FaJsSquare,
-  FaReact,
-  FaGithub,
-  FaLinux,
-  FaTelegram,
-  FaWhatsapp,
-} from "react-icons/fa";
-import {
-  SiTypescript,
-  SiNextdotjs,
-  SiTailwindcss,
-  SiExpress,
-  SiSocketdotio,
-  SiVercel,
-} from "react-icons/si";
+import { MessageCircle, Send } from "lucide-react";
 import { usePreferences } from "../context/PreferencesContext";
+
+const skillGroups = [
+  {
+    title: "skills.categories.languages",
+    items: [
+      { name: "JavaScript", icon: "javascript" },
+      { name: "TypeScript", icon: "typescript" },
+    ],
+  },
+  {
+    title: "skills.categories.frontend",
+    items: [
+      { name: "React", icon: "react" },
+      { name: "Next.js", icon: "nextjs", invertInDark: true },
+      { name: "Tailwind CSS", icon: "tailwindcss" },
+    ],
+  },
+  {
+    title: "skills.categories.backend",
+    items: [
+      { name: "Node.js", icon: "nodejs" },
+      { name: "Express", icon: "express", invertInDark: true },
+      { name: "Socket.IO", icon: "socketio", invertInDark: true },
+    ],
+  },
+  {
+    title: "skills.categories.messaging",
+    items: [
+      { name: "Telegram Bot API", Icon: Send },
+      { name: "WhatsApp (Baileys)", Icon: MessageCircle },
+    ],
+  },
+  {
+    title: "skills.categories.devops",
+    items: [
+      { name: "GitHub", icon: "github", invertInDark: true },
+      { name: "Vercel", icon: "vercel", invertInDark: true },
+      { name: "Linux", icon: "linux" },
+    ],
+  },
+];
 
 export default function Skills() {
   const { t } = usePreferences();
 
   useEffect(() => {
-    ScrollReveal().reveal(".skill-chip", {
-      distance: "20px",
-      duration: 700,
+    ScrollReveal().reveal(".skill-category-card", {
+      distance: "18px",
+      duration: 650,
       easing: "ease-out",
       origin: "bottom",
-      interval: 50,
+      interval: 70,
       reset: false,
     });
   }, []);
 
-  const skills = [
-    { name: "Node.js", Icon: FaNodeJs, color: "text-green-500" },
-    { name: "JavaScript", Icon: FaJsSquare, color: "text-yellow-400" },
-    { name: "TypeScript", Icon: SiTypescript, color: "text-blue-600" },
-    { name: "React", Icon: FaReact, color: "text-blue-400" },
-    { name: "Next.js", Icon: SiNextdotjs, color: "text-slate-900 dark:text-white" },
-    { name: "Express", Icon: SiExpress, color: "text-slate-700 dark:text-slate-200" },
-    { name: "Socket.IO", Icon: SiSocketdotio, color: "text-slate-900 dark:text-white" },
-    { name: "Telegram Bot API", Icon: FaTelegram, color: "text-sky-500" },
-    { name: "WhatsApp (Baileys)", Icon: FaWhatsapp, color: "text-green-500" },
-    { name: "Tailwind CSS", Icon: SiTailwindcss, color: "text-cyan-500" },
-    { name: "GitHub", Icon: FaGithub, color: "text-slate-900 dark:text-white" },
-    { name: t("skills.deployment"), Icon: SiVercel, color: "text-slate-900 dark:text-white" },
-    { name: "Linux", Icon: FaLinux, color: "text-slate-600 dark:text-slate-300" },
-  ];
-
   return (
-    <section className="py-20 px-6 md:px-12 bg-white dark:bg-slate-800 transition-colors">
-      <div className="max-w-6xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-extrabold mb-10 text-center text-slate-900 dark:text-slate-100 reveal">
+    <section className="bg-white px-6 py-20 transition-colors dark:bg-slate-800 md:px-12" aria-labelledby="skills-title">
+      <div className="mx-auto max-w-6xl">
+        <h2 id="skills-title" className="mb-10 text-center text-3xl font-extrabold text-slate-900 dark:text-slate-100 md:text-4xl">
           {t("skills.title")}
         </h2>
 
-        <ul className="flex flex-wrap justify-center gap-3 md:gap-4" aria-label={t("skills.title")}>
-          {skills.map(({ name, Icon, color }) => (
-            <li
-              key={name}
-              className="skill-chip inline-flex items-center gap-2 rounded-full border border-slate-200 dark:border-slate-700 bg-slate-50 dark:bg-slate-700/70 px-3 py-2 shadow-sm transition hover:-translate-y-0.5 hover:shadow-md"
-            >
-              <Icon className={`h-5 w-5 shrink-0 ${color}`} aria-hidden="true" focusable="false" />
-              <span className="text-sm font-medium text-slate-800 dark:text-slate-100">{name}</span>
-            </li>
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-3" aria-label={t("skills.title")}>
+          {skillGroups.map((group) => (
+            <section key={group.title} className="skill-category-card rounded-2xl border border-slate-200 bg-slate-50 p-5 shadow-sm dark:border-slate-700 dark:bg-slate-900/70 sm:p-6">
+              <h3 className="mb-4 text-sm font-bold uppercase tracking-[0.14em] text-primary">{t(group.title)}</h3>
+              <ul className="grid grid-cols-1 gap-3 sm:grid-cols-2">
+                {group.items.map(({ name, icon, Icon, invertInDark }) => (
+                  <li key={name} className="flex min-h-16 items-center gap-3 rounded-xl border border-slate-200 bg-white px-3 py-3 transition hover:-translate-y-0.5 hover:border-primary/40 hover:shadow-sm dark:border-slate-700 dark:bg-slate-800">
+                    <span className="flex h-9 w-9 shrink-0 items-center justify-center rounded-lg bg-slate-50 dark:bg-slate-900">
+                      {icon ? (
+                        <img
+                          src={`/icons/skills/${icon}-original.svg`}
+                          alt=""
+                          aria-hidden="true"
+                          loading="lazy"
+                          className={`h-6 w-6 object-contain ${invertInDark ? "dark:invert" : ""}`}
+                        />
+                      ) : (
+                        <Icon className="h-5 w-5 text-primary" aria-hidden="true" focusable="false" />
+                      )}
+                    </span>
+                    <span className="text-sm font-semibold leading-snug text-slate-800 dark:text-slate-100">{name === "Vercel" ? t("skills.deployment") : name}</span>
+                  </li>
+                ))}
+              </ul>
+            </section>
           ))}
-        </ul>
+        </div>
       </div>
     </section>
   );

@@ -98,7 +98,7 @@ export default function ContactPage() {
         </form>
 
         <p className="text-center mt-8 font-semibold">📧 devnoxinc@gmail.com</p>
-        <p className="text-center mt-1 text-slate-500"></p>
+        <p className="text-center mt-1 text-slate-500">Telegram @Noxmodai · WhatsApp +224 623 75 29 38</p>
       </div>
 
       <Footer />
