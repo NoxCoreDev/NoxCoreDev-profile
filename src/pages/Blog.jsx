@@ -2,11 +2,13 @@ import React, { useEffect, useRef } from "react";
 import ScrollReveal from "scrollreveal";
 import { useNavigate } from "react-router-dom";
 import Footer from "../components/Footer";
+import { usePreferences } from "../context/PreferencesContext";
 import { articles } from "../data/articles";
 
 export default function Blog() {
   const navigate = useNavigate();
   const refs = useRef([]);
+  const { t } = usePreferences();
 
   useEffect(() => {
     ScrollReveal().reveal(refs.current, {
@@ -27,18 +29,15 @@ export default function Blog() {
 
         {articles.length === 0 ? (
           <div className="max-w-md mx-auto rounded-2xl border border-dashed border-slate-300 dark:border-slate-700 p-10 text-center">
-            <p className="font-mono text-sm text-primary">bientôt disponible</p>
-            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">
-              Les prochains articles sur l'automatisation, le DevOps et les bots
-              apparaîtront ici dès leur publication.
-            </p>
+            <p className="font-mono text-sm text-primary">{t("blog.emptyTitle")}</p>
+            <p className="mt-2 text-sm text-slate-500 dark:text-slate-400">{t("blog.emptyDescription")}</p>
           </div>
         ) : (
           <div className="grid gap-6">
-            {articles.map((article, i) => (
+            {articles.map((article, index) => (
               <div
                 key={article.id}
-                ref={(el) => (refs.current[i] = el)}
+                ref={(element) => (refs.current[index] = element)}
                 onClick={() => navigate(`/blog/${article.slug}`)}
                 className="cursor-pointer bg-white dark:bg-slate-900 p-6 rounded-3xl shadow hover:shadow-xl transition"
               >
