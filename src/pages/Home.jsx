@@ -5,6 +5,7 @@ import Footer from "../components/Footer";
 import ScrollReveal from "scrollreveal";
 import Parcours from "../components/Parcours";
 import Skills from "../components/Skills";
+import LatestArticles from "../components/LatestArticles";
 import { projects, author } from "../data/projects";
 
 export default function Home() {
@@ -26,6 +27,7 @@ export default function Home() {
       <Skills />
 
       <Projects projects={projects.slice(0, 4)} author={author} showAllLink={true} />
+      <LatestArticles />
 
       <Footer />
     </div>
