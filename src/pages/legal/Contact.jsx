@@ -1,19 +1,21 @@
 import React, { useState } from "react";
 import Footer from "../../components/Footer";
+import { usePreferences } from "../../context/PreferencesContext";
 
 export default function ContactPage() {
+  const { t } = usePreferences();
   const [form, setForm] = useState({ name: "", email: "", subject: "", message: "" });
 
-  const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+  const handleChange = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.value });
   };
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
+  const handleSubmit = (event) => {
+    event.preventDefault();
     const mailtoLink = `mailto:devnoxinc@gmail.com?subject=${encodeURIComponent(
       form.subject
     )}&body=${encodeURIComponent(
-      `Nom : ${form.name}\nEmail : ${form.email}\n\nMessage :\n${form.message}`
+      `${t("contact.emailBodyName")}: ${form.name}\n${t("contact.email")}: ${form.email}\n\n${t("contact.emailBodyMessage")}:\n${form.message}`
     )}`;
     window.location.href = mailtoLink;
   };
@@ -21,11 +23,10 @@ export default function ContactPage() {
   return (
     <>
       <div className="max-w-5xl mx-auto px-6 py-16">
-        <h1 className="text-3xl font-bold mb-6 text-center">Contact</h1>
+        <h1 className="text-3xl font-bold mb-6 text-center">{t("contact.title")}</h1>
 
         <p className="mb-10 text-center text-slate-600 dark:text-slate-300">
-          Un projet d'automatisation, de bot ou d'application en tête ? Écrivez-moi,
-          j'y répondrai rapidement.
+          {t("contact.intro")}
         </p>
 
         <form
@@ -33,54 +34,58 @@ export default function ContactPage() {
           className="max-w-xl mx-auto bg-white dark:bg-slate-800 shadow-lg rounded-xl p-8 space-y-5 border border-slate-200 dark:border-slate-700"
         >
           <div>
-            <label className="block mb-1 font-medium">Nom complet</label>
+            <label htmlFor="contact-name" className="block mb-1 font-medium">{t("contact.name")}</label>
             <input
+              id="contact-name"
               type="text"
               name="name"
               required
               value={form.name}
               onChange={handleChange}
               className="w-full border border-slate-300 dark:border-slate-600 bg-transparent rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="Votre nom"
+              placeholder={t("contact.namePlaceholder")}
             />
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Adresse email</label>
+            <label htmlFor="contact-email" className="block mb-1 font-medium">{t("contact.email")}</label>
             <input
+              id="contact-email"
               type="email"
               name="email"
               required
               value={form.email}
               onChange={handleChange}
               className="w-full border border-slate-300 dark:border-slate-600 bg-transparent rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="votre@email.com"
+              placeholder={t("contact.emailPlaceholder")}
             />
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Sujet</label>
+            <label htmlFor="contact-subject" className="block mb-1 font-medium">{t("contact.subject")}</label>
             <input
+              id="contact-subject"
               type="text"
               name="subject"
               required
               value={form.subject}
               onChange={handleChange}
               className="w-full border border-slate-300 dark:border-slate-600 bg-transparent rounded-lg px-4 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="Sujet du message"
+              placeholder={t("contact.subjectPlaceholder")}
             />
           </div>
 
           <div>
-            <label className="block mb-1 font-medium">Message</label>
+            <label htmlFor="contact-message" className="block mb-1 font-medium">{t("contact.message")}</label>
             <textarea
+              id="contact-message"
               name="message"
               required
               rows="5"
               value={form.message}
               onChange={handleChange}
               className="w-full border border-slate-300 dark:border-slate-600 bg-transparent rounded-lg px-4 py-2 resize-none focus:outline-none focus:ring-2 focus:ring-primary"
-              placeholder="Votre message..."
+              placeholder={t("contact.messagePlaceholder")}
             />
           </div>
 
@@ -88,7 +93,7 @@ export default function ContactPage() {
             type="submit"
             className="w-full bg-primary text-white py-3 rounded-lg font-semibold hover:opacity-90 transition"
           >
-            Envoyer le message
+            {t("contact.send")}
           </button>
         </form>
 
