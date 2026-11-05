@@ -5,7 +5,7 @@ import Footer from "../../components/Footer";
 import { usePreferences } from "../../context/PreferencesContext";
 import { Link } from "react-router-dom";
 
-const requestTypes = ["collaboration", "project", "bot", "support", "partnership", "other"];
+const requestTypes = ["collaboration", "project", "support", "partnership", "other"];
 const fieldClassName =
   "w-full rounded-xl border border-slate-200 bg-white px-4 py-3 text-slate-900 outline-none transition placeholder:text-slate-400 focus:border-primary focus:ring-4 focus:ring-primary/10 dark:border-slate-700 dark:bg-slate-900 dark:text-white dark:placeholder:text-slate-500";
 
