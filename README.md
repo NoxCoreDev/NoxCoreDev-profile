@@ -1,47 +1,77 @@
-# NoxCoreDev — Portfolio Full-Stack
+# NoxCoreDev — Othman Portfolio
 
-Portfolio bilingue (français/anglais) d’Othman, alias **NoxCoreDev**. Le dépôt est public et le code de ce projet est distribué sous licence MIT : vous pouvez le cloner, le personnaliser et l’utiliser comme base pour votre propre portfolio, en conservant les avis de licence et d’attribution.
+A bilingual portfolio for Othman, also known as **NoxCoreDev**. This is a public repository, and the project’s code is released under the MIT License. You can clone it, customize it, and use it as the starting point for your own portfolio, as long as you keep the relevant license and attribution notices.
 
 <p align="center">
-  <a href="https://noxcoredev-portfolio.vercel.app"><strong>Voir le portfolio en ligne</strong></a>
+  <a href="https://noxcoredev-portfolio.vercel.app"><strong>View the live portfolio</strong></a>
   ·
-  <a href="https://github.com/NoxCoreDev/NoxCoreDev-Profile/fork"><strong>Créer votre fork</strong></a>
+  <a href="https://github.com/NoxCoreDev/NoxCoreDev-Profile/fork"><strong>Fork this repository</strong></a>
 </p>
 
 <p align="center">
-  <a href="LICENSE"><img alt="Licence MIT" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
+  <a href="LICENSE"><img alt="MIT License" src="https://img.shields.io/badge/License-MIT-blue.svg"></a>
   <a href="https://react.dev"><img alt="React" src="https://img.shields.io/badge/React-18-61DAFB?logo=react&logoColor=black"></a>
   <a href="https://vite.dev"><img alt="Vite" src="https://img.shields.io/badge/Vite-5-646CFF?logo=vite&logoColor=white"></a>
 </p>
 
-## Aperçu
+## Preview
 
-Les captures ci-dessous sont générées à partir des pages du site et conservées dans le dépôt pour que les développeurs puissent voir le résultat avant de le cloner.
+These screenshots show actual pages from the portfolio. They are included in the repository so developers can preview the site before cloning it.
 
-| Accueil et présentation Full-Stack | Blog technique |
+| Full-Stack introduction | Technical blog |
 |:--:|:--:|
-| ![Page d’accueil du portfolio NoxCoreDev](docs/screenshots/home.png) | ![Page blog du portfolio NoxCoreDev](docs/screenshots/blog.png) |
+| ![NoxCoreDev portfolio homepage](docs/screenshots/home.png) | ![NoxCoreDev portfolio blog page](docs/screenshots/blog.png) |
 
-## Fonctionnalités
+## Features
 
-- **Présentation Full-Stack** : compétences frontend et backend, parcours et projets.
-- **Animations déjà présentes** : révélations au défilement avec ScrollReveal et transitions au survol sur les cartes, boutons et liens.
-- **Français et anglais**, avec préférences de langue et de thème clair/sombre enregistrées dans le navigateur.
-- **Pages projet et blog** avec articles localisés, images de partage générées au build, partage natif et interactions J’aime/vues.
-- **API serverless** pour les statistiques des articles, conçue pour Vercel ou un hébergeur compatible avec les fonctions Node.js.
-- **Pages Contact et mentions légales**, ainsi que politique de confidentialité et conditions d’utilisation.
-- **SEO de base** : URL canonique, Open Graph, carte X/Twitter, sitemap et données structurées.
-- **Mise en page responsive** adaptée aux téléphones et aux grands écrans.
+<table>
+  <tbody>
+    <tr>
+      <td align="center" width="48"><img src="https://api.iconify.design/lucide/code-2.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
+      <td><strong>Full-Stack portfolio</strong> presenting frontend and backend skills, the developer journey, and projects.</td>
+    </tr>
+    <tr>
+      <td align="center" width="48"><img src="https://api.iconify.design/lucide/mouse-pointer-2.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
+      <td><strong>Existing animations</strong>: scroll reveals with ScrollReveal and hover transitions on cards, buttons, and links.</td>
+    </tr>
+    <tr>
+      <td align="center" width="48"><img src="https://api.iconify.design/lucide/languages.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
+      <td><strong>French and English</strong>, with language and light/dark theme preferences saved in the browser.</td>
+    </tr>
+    <tr>
+      <td align="center" width="48"><img src="https://api.iconify.design/lucide/layers.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
+      <td><strong>Project and blog pages</strong> with localized articles, build-generated social preview images, native sharing, likes, and view counts.</td>
+    </tr>
+    <tr>
+      <td align="center" width="48"><img src="https://api.iconify.design/lucide/server.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
+      <td><strong>Serverless API</strong> for article statistics, designed for Vercel or a host that supports Node.js functions.</td>
+    </tr>
+    <tr>
+      <td align="center" width="48"><img src="https://api.iconify.design/lucide/contact.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
+      <td><strong>Contact and legal pages</strong>, including a privacy policy and terms of use.</td>
+    </tr>
+    <tr>
+      <td align="center" width="48"><img src="https://api.iconify.design/lucide/search-check.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
+      <td><strong>SEO essentials</strong>: canonical URL, Open Graph metadata, X/Twitter card, sitemap, and structured data.</td>
+    </tr>
+    <tr>
+      <td align="center" width="48"><img src="https://api.iconify.design/lucide/smartphone.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
+      <td><strong>Responsive layout</strong> for phones and larger screens.</td>
+    </tr>
+  </tbody>
+</table>
 
-## Technologies
+<p><em>Feature icons are SVGs from <a href="https://github.com/lucide-icons/lucide">Lucide</a> (ISC License), served through the <a href="https://iconify.design/">Iconify API</a>.</em></p>
 
-**Interface :** React 18, Vite 5, React Router, Tailwind CSS, Lucide, React Icons et ScrollReveal.
+## Tech stack
 
-**Fonction côté serveur facultative :** fonction Node.js dans `api/` et compteurs Redis REST Upstash. Le site reste consultable sans cette configuration ; les statistiques ne sont alors pas affichées comme si elles existaient.
+**Frontend:** React 18, Vite 5, React Router, Tailwind CSS, Lucide, React Icons, and ScrollReveal.
 
-## Démarrage local
+**Optional server-side feature:** a Node.js function in `api/` and Upstash Redis REST counters. The site remains usable without this configuration; statistics are simply unavailable rather than shown as fabricated numbers.
 
-Prérequis : Node.js 18 ou une version ultérieure et npm.
+## Run locally
+
+Requirements: Node.js 18 or later and npm.
 
 ```bash
 git clone https://github.com/NoxCoreDev/NoxCoreDev-Profile.git
@@ -50,77 +80,77 @@ npm install
 npm run dev
 ```
 
-Ouvrez l’adresse affichée par Vite, généralement `http://localhost:5173`.
+Open the URL printed by Vite, usually `http://localhost:5173`.
 
-Pour vérifier une version de production :
+To test a production build:
 
 ```bash
 npm run build
 npm run preview
 ```
 
-## Activer les compteurs d’articles (facultatif)
+## Enable article counters (optional)
 
-Pour utiliser les boutons de vues et de J’aime, créez une base Redis compatible REST sur Upstash puis configurez ces variables dans l’environnement **serveur** de votre déploiement :
+To use the view and like buttons, create an Upstash database with a REST API, then configure these variables in your deployment’s **server-side** environment:
 
 ```env
 UPSTASH_REDIS_REST_URL=
 UPSTASH_REDIS_REST_TOKEN=
-SITE_URL=https://votre-domaine.example
+SITE_URL=https://your-domain.example
 ```
 
-Un exemple est fourni dans `.env.example`. N’ajoutez jamais le jeton Redis à une variable `VITE_*` : elle serait incluse dans les fichiers publics du navigateur. Sans les deux variables Upstash, les compteurs restent indisponibles plutôt que d’afficher des chiffres fictifs. Les vues sont limitées à une par navigateur et par article sur 24 heures ; le J’aime peut être retiré.
+An example is provided in `.env.example`. Never put the Redis token in a `VITE_*` variable: those values are included in public browser files. Without both Upstash variables, counters remain unavailable instead of displaying made-up figures. Views are deduplicated per browser and article for 24 hours; likes can be removed.
 
-## Personnaliser ce portfolio
+## Make it your own
 
-1. Faites un **fork** du dépôt, puis clonez votre fork.
-2. Remplacez le logo et les images dans `public/` par vos propres créations ou des ressources que vous avez le droit d’utiliser.
-3. Modifiez `src/data/projects.js` pour ajouter vos projets, leurs descriptions, images, démonstrations et dépôts.
-4. Personnalisez `src/i18n/translations.js`, `src/components/Hero.jsx` et `src/components/Parcours.jsx` pour votre profil. Les textes français et anglais sont gérés séparément.
-5. Mettez à jour les liens sociaux dans `src/components/Footer.jsx`, les métadonnées et l’URL canonique dans `index.html`, ainsi que `public/og-image.png`, `public/sitemap.xml` et `public/robot.txt` pour votre domaine.
-6. Si vous gardez le blog, ajoutez les articles dans `src/data/articles.jsx` et leurs slugs dans `src/data/article-slugs.json`. La commande de build génère les pages et aperçus associés.
-7. Lancez `npm run build`, vérifiez le résultat avec `npm run preview`, puis déployez votre fork sur une plateforme statique. Vercel est déjà configuré ; les compteurs demandent en plus ses fonctions Node.js et les variables Upstash.
+1. **Fork** this repository, then clone your fork.
+2. Replace the logo and images in `public/` with your own work or resources you are allowed to use.
+3. Edit `src/data/projects.js` to add your projects, descriptions, images, demos, and repositories.
+4. Customize `src/i18n/translations.js`, `src/components/Hero.jsx`, and `src/components/Parcours.jsx` for your profile. French and English text is managed separately.
+5. Update social links in `src/components/Footer.jsx`, metadata and the canonical URL in `index.html`, and `public/og-image.png`, `public/sitemap.xml`, and `public/robot.txt` for your domain.
+6. If you keep the blog, add articles in `src/data/articles.jsx` and their slugs in `src/data/article-slugs.json`. The build generates the associated pages and previews.
+7. Run `npm run build`, check the result with `npm run preview`, then deploy your fork to a static hosting platform. Vercel is already configured; counters additionally require its Node.js functions and the Upstash variables.
 
-### Générer ou remplacer les captures du README
+### Replace the README screenshots
 
-Les images utilisées dans ce README se trouvent dans `docs/screenshots/`. Remplacez-les par des captures de votre propre site lorsque vous changez fortement le design, en évitant d’y afficher des informations privées.
+The images used in this README are in `docs/screenshots/`. If you make major design changes, replace them with screenshots of your own site and avoid including private information.
 
-## Structure du dépôt
+## Repository structure
 
 ```text
 api/
-  article-stats.js           API de vues et de J’aime (Redis REST facultatif)
-docs/screenshots/            Captures de l’accueil et du blog
+  article-stats.js           Article views and likes API (optional Redis REST)
+docs/screenshots/            Homepage and blog screenshots
 public/
-  blog/                      Couvertures d’articles
-  icons/skills/              Icônes Devicon et leur licence
-  logo.svg                   Logo principal
-  og/                        Images de partage des articles
+  blog/                      Article cover images
+  icons/skills/              Devicon icons and their license
+  logo.svg                   Main logo
+  og/                        Article social preview images
 scripts/
   generate-article-previews.mjs
 src/
-  components/                Navigation, héros, compétences, projets et pied de page
-  data/                      Projets, articles et slugs
-  i18n/translations.js       Textes français et anglais
-  pages/                     Accueil, projets, blog, articles et pages légales
-  context/                   Préférences de thème et de langue
+  components/                Navigation, hero, skills, projects, and footer
+  data/                      Projects, articles, and slugs
+  i18n/translations.js       French and English text
+  pages/                     Home, projects, blog, articles, and legal pages
+  context/                   Theme and language preferences
 ```
 
-## Liens publics
+## Public links
 
-- **Portfolio :** [noxcoredev-portfolio.vercel.app](https://noxcoredev-portfolio.vercel.app)
-- **GitHub :** [github.com/NoxCoreDev](https://github.com/NoxCoreDev)
-- **Email :** [devnoxinc@gmail.com](mailto:devnoxinc@gmail.com)
-- **Telegram :** [@Noxmodai](https://t.me/Noxmodai)
-- **WhatsApp :** [+224 623 75 29 38](https://wa.me/224623752938)
-- **LinkedIn :** [NoxCoreDev](https://www.linkedin.com/in/NoxCoreDev)
-- **X :** [@NoxPrimeeeinc](https://www.x.com/NoxPrimeeeinc)
-- **Instagram :** [@noxprimeeeinc](https://www.instagram.com/noxprimeeeinc?vrfl=NmM3ZWFsd2t3cXdm)
-- **YouTube :** [@noxcoredev](https://youtube.com/@noxcoredev?si=YGqUJHTXHkSHr8lm)
-- **Facebook :** [Profil Facebook](https://www.facebook.com/share/1VZrh6qJQD)
+- **Portfolio:** [noxcoredev-portfolio.vercel.app](https://noxcoredev-portfolio.vercel.app)
+- **GitHub:** [github.com/NoxCoreDev](https://github.com/NoxCoreDev)
+- **Email:** [devnoxinc@gmail.com](mailto:devnoxinc@gmail.com)
+- **Telegram:** [@Noxmodai](https://t.me/Noxmodai)
+- **WhatsApp:** [+224 623 75 29 38](https://wa.me/224623752938)
+- **LinkedIn:** [NoxCoreDev](https://www.linkedin.com/in/NoxCoreDev)
+- **X:** [@NoxPrimeeeinc](https://www.x.com/NoxPrimeeeinc)
+- **Instagram:** [@noxprimeeeinc](https://www.instagram.com/noxprimeeeinc?vrfl=NmM3ZWFsd2t3cXdm)
+- **YouTube:** [@noxcoredev](https://youtube.com/@noxcoredev?si=YGqUJHTXHkSHr8lm)
+- **Facebook:** [Facebook profile](https://www.facebook.com/share/1VZrh6qJQD)
 
-## Licence et attributions
+## License and attributions
 
-Le code de ce dépôt est sous **licence MIT** (voir [`LICENSE`](LICENSE)). Vous pouvez créer votre propre version et la redistribuer en conservant l’avis de copyright et le texte de licence. Le projet réutilise une base attribuée à **JeanStephTech** sous MIT ; les icônes de compétences proviennent de **Devicon** sous MIT. Les crédits détaillés sont dans [`NOTICE.md`](NOTICE.md) et doivent rester avec les fichiers concernés.
+The code in this repository is released under the **MIT License** (see [`LICENSE`](LICENSE)). You may create and redistribute your own version by retaining the copyright notice and license text. This project reuses a starter structure credited to **JeanStephTech** under MIT; the skill icons come from **Devicon** under MIT. Full credits are in [`NOTICE.md`](NOTICE.md) and must remain with the relevant files.
 
-Les noms et logos de technologies restent la propriété de leurs détenteurs. Remplacez les photos, captures de projets et contenus qui ne vous appartiennent pas avant de publier votre propre portfolio ; une licence logicielle ne vous transfère pas automatiquement les droits sur ces médias ou sur des contenus tiers. La valeur `"private": true` de `package.json` empêche seulement la publication accidentelle du package sur npm ; elle ne rend pas ce dépôt GitHub privé.
+Technology names and logos remain the property of their respective owners. Replace photos, project screenshots, and content you do not own before publishing your own portfolio; a software license does not automatically grant rights to third-party media. The `"private": true` setting in `package.json` only prevents accidental publishing of the package to npm; it does not make this GitHub repository private.
