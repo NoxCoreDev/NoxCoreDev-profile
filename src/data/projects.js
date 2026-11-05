@@ -7,13 +7,14 @@ export const author = {
 export const projects = [
   {
     id: 1,
-    title: "NOXFREEPANELBOT",
-    desc: "Bot Telegram qui facilite l'accès à un hébergement gratuit grâce à un système de coins et de parrainage. Les utilisateurs gagnent des coins en invitant leurs amis et en réclamant leur récompense quotidienne (+5 coins). Le bot suit les parrainages et affiche le top 10 des membres les plus actifs.",
-    image:
-      "https://cdn5.telesco.pe/file/qLhevYRnO0bFXKVQf8q3DZRrGAos1dCaa5E-qCmdBkCo323yikbAqOWf5vcu3BcpfvRCR4hpd2-ob1eYA8p8JvvsxVvctgHrN5a5bO1VLquNVvBBK-gS0f_m8L-Xw72Y81QznAn8vFlc8l0SF_Y94q8AVkHP1WuYN1vcEKTm_qyorbzs0azJscfIn7tX41n6EoJe1EHXIFGJJ9UMFTaM2QBknds56a3O_SCCpBxMJ59n0VO2wUr8lxTTGn7tBkdogCVcCtvNi2WVrJrLFxcpfjeq9bSDql3ZZCByuRGrjhsGe2JkAbGQS9F5deJ12YeM4kw8epSPQ0x7IcKnC2x-SA.jpg",
-    link: "https://t.me/noxfreepanelbot",
-    github: "https://github.com/NoxCoreDev/noxfreepanelbot/fork",
-    tags: ["Telegram Bot API", "Système de coins", "Parrainage"],
+     title: "NOXFREEPANELBOT",
+     desc: "Bot Telegram qui facilite l'accès à un hébergement gratuit grâce à un système de coins et de parrainage. Les utilisateurs gagnent des coins en invitant leurs amis et en réclamant leur récompense quotidienne (+5 coins). Le bot suit les parrainages et affiche le top 10 des membres les plus actifs.",
+     image:
+-      "https://cdn5.telesco.pe/file/qLhevYRnO0bFXKVQf8q3DZRrGAos1dCaa5E-qCmdBkCo323yikbAqOWf5vcu3BcpfvRCR4hpd2-ob1eYA8p8JvvsxVvctgHrN5a5bO1VLquNVvBBK-gS0f_m8L-Xw72Y81QznAn8vFlc8l0SF_Y94q8AVkHP1WuYN1vcEKTm_qyorbzs0azJscfIn7tX41n6EoJe1EHXIFGJJ9UMFTaM2QBknds56a3O_SCCpBxMJ59n0VO2wUr8lxTTGn7tBkdogCVcCtvNi2WVrJrLFxcpfjeq9bSDql3ZZCByuRGrjhsGe2JkAbGQS9F5deJ12YeM4kw8epSPQ0x7IcKnC2x-SA.jpg",
++      "https://cdn5.telesco.pe/file/N5X5sw7-b7BGfpRd1-0hoq92ZE5CpkYspDtRA8Hm2euYROoBhHNNdvv6hzM1_aMWnb82fQvPQb-7VY51fq--3EIN9prgzg-o5Ge8e_Lscre6TlBwHq_IPJJP3TCltBL9CdsFC7tRNjoqrvK4GIHMfxdLbJtesOgY-MbZ5RVtmlJdCqPKaNe7Q07DnUX7pPRRwUt7zOyl30TbnreaDrckpEdaX_CE1yzkw1SYKk4lHN6IFrp37HLJoEh-ex1EZVhOBm8sNgUe4-lfbpRzGSXStxU5cNfF1KemQj1adpUzEtSB19ZjnMSAfZmahwaYvEPxAUOqvZu0fRE22sFyY3OUtA.jpg",
+     link: "https://t.me/noxfreepanelbot",
+     github: "https://github.com/NoxCoreDev/noxfreepanelbot/fork",
+     tags: ["Telegram Bot API", "Système de coins", "Parrainage"],
   },
   {
     id: 2,
