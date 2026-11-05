@@ -1,6 +1,6 @@
 # NoxCoreDev — Othman Portfolio
 
-A bilingual portfolio for Othman, also known as **NoxCoreDev**. This is a public repository, and the project’s code is released under the MIT License. You can clone it, customize it, and use it as the starting point for your own portfolio, as long as you keep the relevant license and attribution notices.
+A bilingual (French/English) portfolio for Othman, also known as **NoxCoreDev**. This is a public repository, and the project’s code is released under the MIT License. You can clone it, customize it, and use it as the starting point for your own portfolio, as long as you keep the relevant license and attribution notices.
 
 <p align="center">
   <a href="https://noxcoredev-portfolio.vercel.app"><strong>View the live portfolio</strong></a>
@@ -24,44 +24,18 @@ These screenshots show actual pages from the portfolio. They are included in the
 
 ## Features
 
-<table>
-  <tbody>
-    <tr>
-      <td align="center" width="48"><img src="https://api.iconify.design/lucide/code-2.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
-      <td><strong>Full-Stack portfolio</strong> presenting frontend and backend skills, the developer journey, and projects.</td>
-    </tr>
-    <tr>
-      <td align="center" width="48"><img src="https://api.iconify.design/lucide/mouse-pointer-2.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
-      <td><strong>Existing animations</strong>: scroll reveals with ScrollReveal and hover transitions on cards, buttons, and links.</td>
-    </tr>
-    <tr>
-      <td align="center" width="48"><img src="https://api.iconify.design/lucide/languages.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
-      <td><strong>French and English</strong>, with language and light/dark theme preferences saved in the browser.</td>
-    </tr>
-    <tr>
-      <td align="center" width="48"><img src="https://api.iconify.design/lucide/layers.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
-      <td><strong>Project and blog pages</strong> with localized articles, build-generated social preview images, native sharing, likes, and view counts.</td>
-    </tr>
-    <tr>
-      <td align="center" width="48"><img src="https://api.iconify.design/lucide/server.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
-      <td><strong>Serverless API</strong> for article statistics, designed for Vercel or a host that supports Node.js functions.</td>
-    </tr>
-    <tr>
-      <td align="center" width="48"><img src="https://api.iconify.design/lucide/contact.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
-      <td><strong>Contact and legal pages</strong>, including a privacy policy and terms of use.</td>
-    </tr>
-    <tr>
-      <td align="center" width="48"><img src="https://api.iconify.design/lucide/search-check.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
-      <td><strong>SEO essentials</strong>: canonical URL, Open Graph metadata, X/Twitter card, sitemap, and structured data.</td>
-    </tr>
-    <tr>
-      <td align="center" width="48"><img src="https://api.iconify.design/lucide/smartphone.svg?height=24&amp;color=%235B5DF5" alt="" width="24" height="24"></td>
-      <td><strong>Responsive layout</strong> for phones and larger screens.</td>
-    </tr>
-  </tbody>
-</table>
+| Icon | Feature |
+|:--:|:--|
+| ![Code icon](docs/icons/code-2.svg) | **Full-Stack portfolio** presenting frontend and backend skills, the developer journey, and projects. |
+| ![Pointer icon](docs/icons/mouse-pointer-2.svg) | **Existing animations**: scroll reveals with ScrollReveal and hover transitions on cards, buttons, and links. |
+| ![Languages icon](docs/icons/languages.svg) | **French and English**, with language and light/dark theme preferences saved in the browser. |
+| ![Layers icon](docs/icons/layers.svg) | **Project and blog pages** with localized articles, build-generated social preview images, native sharing, likes, and view counts. |
+| ![Server icon](docs/icons/server.svg) | **Serverless API** for article statistics, designed for Vercel or a host that supports Node.js functions. |
+| ![Contact icon](docs/icons/contact.svg) | **Contact and legal pages**, including a privacy policy and terms of use. |
+| ![SEO icon](docs/icons/search-check.svg) | **SEO essentials**: canonical URL, Open Graph metadata, X/Twitter card, sitemap, and structured data. |
+| ![Mobile icon](docs/icons/smartphone.svg) | **Responsive layout** for phones and larger screens. |
 
-<p><em>Feature icons are SVGs from <a href="https://github.com/lucide-icons/lucide">Lucide</a> (ISC License), served through the <a href="https://iconify.design/">Iconify API</a>.</em></p>
+<p><em>Feature icons are included as local SVG files in <code>docs/icons/</code>. They are from <a href="https://github.com/lucide-icons/lucide">Lucide</a> and are licensed under ISC.</em></p>
 
 ## Tech stack
 
@@ -120,6 +94,7 @@ The images used in this README are in `docs/screenshots/`. If you make major des
 ```text
 api/
   article-stats.js           Article views and likes API (optional Redis REST)
+docs/icons/                  Locally stored Lucide SVG feature icons (ISC)
 docs/screenshots/            Homepage and blog screenshots
 public/
   blog/                      Article cover images
