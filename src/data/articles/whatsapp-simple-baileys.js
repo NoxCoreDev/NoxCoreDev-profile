@@ -32,7 +32,6 @@ const article = {
     title: "Un bot WhatsApp simple avec Baileys : du premier appairage aux commandes",
     excerpt: "NoxWaFreeBot, fichier par fichier : configuration centrale, commandes NoxCoreDev, appairage Baileys, deux newsletters autorisées et événements de groupe ciblés.",
     downloadLabel: "Télécharger la base complète (.zip)",
-    intro: "NoxWaFreeBot est le nom du bot; seules quelques fonctions liées au propriétaire portent le préfixe NoxCoreDev, tandis que les fonctions génériques gardent des noms courts. Cette base complète reprend la structure du projet fourni — session Baileys, gestionnaire de commandes et événement d’appairage — puis la rend cohérente avec l’identité et les fonctions demandées. Le ZIP joint contient le code source et les tests hors ligne, mais aucun numéro propriétaire réel, code d’appairage ou fichier de session.",
     tags: ["NoxWaFreeBot", "NoxCoreDev", "WhatsApp", "Baileys", "Node.js"],
     sections: [
       {
@@ -174,7 +173,6 @@ const article = {
     title: "A simple WhatsApp bot with Baileys: pairing and first commands",
     excerpt: "NoxWaFreeBot, file by file: central configuration, NoxCoreDev commands, Baileys pairing, two allowed newsletters, and targeted group events.",
     downloadLabel: "Download the complete starter (.zip)",
-    intro: "NoxWaFreeBot is the bot name; only a few owner-related functions use the NoxCoreDev prefix, while generic helpers keep short names. This complete starter follows the supplied project’s structure—Baileys session, command handler, and pairing flow—then aligns it with the requested identity and features. The ZIP contains source code and offline tests, but no real owner number, pairing code, or session file.",
     tags: ["NoxWaFreeBot", "NoxCoreDev", "WhatsApp", "Baileys", "Node.js"],
     sections: [
       {

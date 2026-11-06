@@ -26,6 +26,10 @@ try {
 assert.equal(NoxCoreDevArticle.slug, "bot-whatsapp-simple-baileys");
 assert.equal(NoxCoreDevArticle.downloadUrl, "/downloads/noxwafreebot-base.zip");
 assert.equal(NoxCoreDevArticle.fr.title.includes("2025"), false);
+assert.equal(NoxCoreDevArticle.fr.intro, undefined);
+assert.equal(NoxCoreDevArticle.en.intro, undefined);
+assert.equal(NoxCoreDevArticle.fr.downloadLabel, "Télécharger la base complète (.zip)");
+assert.equal(NoxCoreDevArticle.en.downloadLabel, "Download the complete starter (.zip)");
 assert.equal(NoxCoreDevConfig.commands.includes(".hello"), true);
 assert.equal(NoxCoreDevArticle.fr.sections[4].paragraphs.join(" ").includes(".hello"), true);
 assert.equal(NoxCoreDevArticle.en.sections[4].paragraphs.join(" ").includes(".hello"), true);
@@ -85,9 +89,19 @@ for (const NoxCoreDevFunctionFile of NoxCoreDevFunctionFiles) {
 }
 assert.deepEqual([...NoxCoreDevFoundBrandedFunctionNames].sort(), [...NoxCoreDevBrandedFunctionNames].sort());
 
+const NoxCoreDevArticlePageSource = await readFile(path.join(NoxCoreDevRoot, "src/pages/Article.jsx"), "utf8");
+const NoxCoreDevDownloadButtonIndex = NoxCoreDevArticlePageSource.indexOf("{article.downloadUrl && (");
+const NoxCoreDevTakeawaysIndex = NoxCoreDevArticlePageSource.indexOf('{t("blog.takeaways")}');
+const NoxCoreDevAuthorIndex = NoxCoreDevArticlePageSource.indexOf('{t("blog.authorLabel")}');
+const NoxCoreDevArticleEndIndex = NoxCoreDevArticlePageSource.indexOf("</article>");
+assert.equal(NoxCoreDevArticlePageSource.includes("{localized.intro && ("), true);
+assert.equal(NoxCoreDevDownloadButtonIndex > NoxCoreDevTakeawaysIndex, true);
+assert.equal(NoxCoreDevDownloadButtonIndex > NoxCoreDevAuthorIndex, true);
+assert.equal(NoxCoreDevDownloadButtonIndex < NoxCoreDevArticleEndIndex, true);
+
 const NoxCoreDevArticleText = JSON.stringify(NoxCoreDevArticle.fr) + JSON.stringify(NoxCoreDevArticle.en);
 assert.equal(NoxCoreDevArticleText.includes("Create Your Own WhatsApp Bot – Complete 2025 Guide"), false);
 assert.equal(NoxCoreDevArticleText.includes("120363434925681370@newsletter"), true);
 assert.equal(NoxCoreDevArticleText.includes("120363428923746817@newsletter"), true);
 
-process.stdout.write("NoxWaFreeBot article wiring verified: source files, central placeholder config, allow-listed JIDs, slug, and download path.\n");
+process.stdout.write("NoxWaFreeBot article wiring verified: no intro paragraph, end-positioned bilingual ZIP button, source blocks, central placeholder config, allow-listed JIDs, and slug.\n");

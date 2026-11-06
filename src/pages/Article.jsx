@@ -138,19 +138,9 @@ export default function Article() {
             />
           </figure>
 
-          <div className="rounded-2xl border border-slate-200 bg-white p-6 text-lg leading-8 text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 sm:p-8">
-            <p className="font-medium leading-8">{renderInlineCode(localized.intro)}</p>
-          </div>
-
-          {article.downloadUrl && (
-            <div className="mt-6">
-              <a
-                href={article.downloadUrl}
-                download
-                className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-bold text-white shadow transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
-              >
-                <Download size={18} aria-hidden="true" /> {localized.downloadLabel || (language === "fr" ? "Télécharger le ZIP" : "Download ZIP")}
-              </a>
+          {localized.intro && (
+            <div className="rounded-2xl border border-slate-200 bg-white p-6 text-lg leading-8 text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 sm:p-8">
+              <p className="font-medium leading-8">{renderInlineCode(localized.intro)}</p>
             </div>
           )}
 
@@ -233,6 +223,18 @@ export default function Article() {
               <p className="mt-1 text-sm text-slate-300">{blogAuthor.bio[language]}</p>
             </div>
           </div>
+
+          {article.downloadUrl && (
+            <div className="mt-8">
+              <a
+                href={article.downloadUrl}
+                download
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-bold text-white shadow transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                <Download size={18} aria-hidden="true" /> {localized.downloadLabel || (language === "fr" ? "Télécharger le ZIP" : "Download ZIP")}
+              </a>
+            </div>
+          )}
         </article>
       </main>
       <Footer />
