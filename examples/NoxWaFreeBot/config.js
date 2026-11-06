@@ -22,15 +22,15 @@ export const NoxCoreDevConfig = {
     "🌻", "🍀", "🌍", "💎", "📌", "📣", "🤖", "🧠", "📱", "💻",
   ]),
   commands: Object.freeze([
-    ".ping", ".alive", ".menu", ".mode", ".self", ".public",
+    ".ping", ".hello", ".alive", ".menu", ".mode", ".self", ".public",
     ".owner", ".welcome on/off", ".goodbye on/off",
   ]),
   welcome: {
     enabled: false,
-    message: "Bienvenue @user dans le groupe !",
+    message: "Welcome @user to the group!",
   },
   goodbye: {
     enabled: false,
-    message: "Au revoir @user, bonne continuation !",
+    message: "Goodbye @user!",
   },
 };

@@ -26,6 +26,9 @@ try {
 assert.equal(NoxCoreDevArticle.slug, "bot-whatsapp-simple-baileys");
 assert.equal(NoxCoreDevArticle.downloadUrl, "/downloads/noxwafreebot-base.zip");
 assert.equal(NoxCoreDevArticle.fr.title.includes("2025"), false);
+assert.equal(NoxCoreDevConfig.commands.includes(".hello"), true);
+assert.equal(NoxCoreDevArticle.fr.sections[4].paragraphs.join(" ").includes(".hello"), true);
+assert.equal(NoxCoreDevArticle.en.sections[4].paragraphs.join(" ").includes(".hello"), true);
 assert.deepEqual(NoxCoreDevConfig.newsletterJids, [
   "120363434925681370@newsletter",
   "120363428923746817@newsletter",
@@ -68,13 +71,19 @@ const NoxCoreDevFunctionFiles = [
   "examples/NoxWaFreeBot/group-events.js",
   "examples/NoxWaFreeBot/scripts/mock-test.mjs",
 ];
+const NoxCoreDevBrandedFunctionNames = new Set(["NoxCoreDevOwnerCommand", "NoxCoreDevIsOwner"]);
+const NoxCoreDevFoundBrandedFunctionNames = new Set();
 const NoxCoreDevFunctionPattern = /\b(?:async\s+)?function\s+([A-Za-z_$][\w$]*)/g;
 for (const NoxCoreDevFunctionFile of NoxCoreDevFunctionFiles) {
   const NoxCoreDevFunctionSource = await readFile(path.join(NoxCoreDevRoot, NoxCoreDevFunctionFile), "utf8");
   for (const NoxCoreDevMatch of NoxCoreDevFunctionSource.matchAll(NoxCoreDevFunctionPattern)) {
-    assert.equal(NoxCoreDevMatch[1].startsWith("NoxCoreDev"), true, "Local function must use the NoxCoreDev prefix: " + NoxCoreDevMatch[1]);
+    if (NoxCoreDevMatch[1].startsWith("NoxCoreDev")) {
+      assert.equal(NoxCoreDevBrandedFunctionNames.has(NoxCoreDevMatch[1]), true, "Only owner-related functions use the NoxCoreDev prefix: " + NoxCoreDevMatch[1]);
+      NoxCoreDevFoundBrandedFunctionNames.add(NoxCoreDevMatch[1]);
+    }
   }
 }
+assert.deepEqual([...NoxCoreDevFoundBrandedFunctionNames].sort(), [...NoxCoreDevBrandedFunctionNames].sort());
 
 const NoxCoreDevArticleText = JSON.stringify(NoxCoreDevArticle.fr) + JSON.stringify(NoxCoreDevArticle.en);
 assert.equal(NoxCoreDevArticleText.includes("Create Your Own WhatsApp Bot – Complete 2025 Guide"), false);

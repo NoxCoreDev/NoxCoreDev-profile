@@ -1,13 +1,13 @@
 import assert from "node:assert/strict";
 import { NoxCoreDevConfig } from "../config.js";
-import { NoxCoreDevHandleCommand } from "../commands.js";
+import { handleCommand } from "../commands.js";
 import {
   NoxCoreDevGroupSettings,
-  NoxCoreDevHandleGroupParticipantsUpdate,
+  handleGroupParticipantsUpdate,
 } from "../group-events.js";
 import {
-  NoxCoreDevFollowNewsletters,
-  NoxCoreDevHandleNewsletterMessage,
+  followNewsletters,
+  handleNewsletterMessage,
   NoxCoreDevNewsletterJids,
   NoxCoreDevReactionEmojis,
 } from "../newsletters.js";
@@ -18,44 +18,44 @@ const NoxCoreDevFollowCalls = [];
 const NoxCoreDevReactionCalls = [];
 const NoxCoreDevSentMessages = [];
 
-async function NoxCoreDevMockSendMessage(jid, payload) {
+async function mockSendMessage(jid, payload) {
   NoxCoreDevSentMessages.push({ jid, payload });
   return { key: { id: "mock-message" } };
 }
 
-async function NoxCoreDevMockGroupMetadata(jid) {
+async function mockGroupMetadata(jid) {
   return {
     id: jid,
     participants: [{ id: NoxCoreDevTestOwnerJid, admin: "admin" }],
   };
 }
 
-async function NoxCoreDevMockNewsletterFollow(jid) {
+async function mockNewsletterFollow(jid) {
   NoxCoreDevFollowCalls.push(jid);
   return { ok: true };
 }
 
-async function NoxCoreDevMockNewsletterReactMessage(jid, serverId, emoji) {
+async function mockNewsletterReactMessage(jid, serverId, emoji) {
   NoxCoreDevReactionCalls.push({ jid, serverId, emoji });
 }
 
-function NoxCoreDevMakeMessage(text, remoteJid, participant) {
+function makeMessage(text, remoteJid, participant) {
   return {
     key: { remoteJid, participant, id: "local-id", fromMe: false },
     message: { conversation: text },
   };
 }
 
-async function NoxCoreDevRunMockTests() {
+async function runMockTests() {
   NoxCoreDevConfig.mode = "public";
   NoxCoreDevConfig.ownerNumber = NoxCoreDevTestOwnerNumber;
   NoxCoreDevGroupSettings.clear();
 
   const NoxCoreDevMockClient = {
-    sendMessage: NoxCoreDevMockSendMessage,
-    groupMetadata: NoxCoreDevMockGroupMetadata,
-    newsletterFollow: NoxCoreDevMockNewsletterFollow,
-    newsletterReactMessage: NoxCoreDevMockNewsletterReactMessage,
+    sendMessage: mockSendMessage,
+    groupMetadata: mockGroupMetadata,
+    newsletterFollow: mockNewsletterFollow,
+    newsletterReactMessage: mockNewsletterReactMessage,
   };
 
   assert.deepEqual(NoxCoreDevNewsletterJids, [
@@ -64,8 +64,8 @@ async function NoxCoreDevRunMockTests() {
   ]);
   assert.equal(NoxCoreDevReactionEmojis.length >= 50, true);
 
-  await NoxCoreDevFollowNewsletters(NoxCoreDevMockClient);
-  await NoxCoreDevFollowNewsletters(NoxCoreDevMockClient);
+  await followNewsletters(NoxCoreDevMockClient);
+  await followNewsletters(NoxCoreDevMockClient);
   assert.deepEqual(NoxCoreDevFollowCalls, NoxCoreDevNewsletterJids);
 
   const NoxCoreDevTargetMessage = {
@@ -77,8 +77,8 @@ async function NoxCoreDevRunMockTests() {
     },
     message: { conversation: "newsletter post" },
   };
-  await NoxCoreDevHandleNewsletterMessage(NoxCoreDevTargetMessage, NoxCoreDevMockClient);
-  await NoxCoreDevHandleNewsletterMessage(NoxCoreDevTargetMessage, NoxCoreDevMockClient);
+  await handleNewsletterMessage(NoxCoreDevTargetMessage, NoxCoreDevMockClient);
+  await handleNewsletterMessage(NoxCoreDevTargetMessage, NoxCoreDevMockClient);
   assert.equal(NoxCoreDevReactionCalls.length, 1);
   assert.equal(NoxCoreDevReactionCalls[0].jid, NoxCoreDevNewsletterJids[0]);
   assert.equal(NoxCoreDevReactionCalls[0].serverId, "server-message-id");
@@ -88,84 +88,108 @@ async function NoxCoreDevRunMockTests() {
     key: { remoteJid: "not-configured@newsletter", id: "not-allowed", fromMe: false },
     message: { conversation: "not a configured target" },
   };
-  await NoxCoreDevHandleNewsletterMessage(NoxCoreDevOtherNewsletterMessage, NoxCoreDevMockClient);
+  await handleNewsletterMessage(NoxCoreDevOtherNewsletterMessage, NoxCoreDevMockClient);
   assert.equal(NoxCoreDevReactionCalls.length, 1);
 
-  function NoxCoreDevOwnerMessage(text, remoteJid = "test@s.whatsapp.net") {
+  function ownerMessage(text, remoteJid = "test@s.whatsapp.net") {
     return {
       key: { remoteJid, participant: NoxCoreDevTestOwnerJid, fromMe: false },
       message: { conversation: text },
     };
   }
   const NoxCoreDevBeforeCommands = NoxCoreDevSentMessages.length;
-  await NoxCoreDevHandleCommand(NoxCoreDevOwnerMessage(".ping"), NoxCoreDevMockClient);
-  await NoxCoreDevHandleCommand(NoxCoreDevOwnerMessage(".alive"), NoxCoreDevMockClient);
-  await NoxCoreDevHandleCommand(NoxCoreDevOwnerMessage(".menu"), NoxCoreDevMockClient);
-  await NoxCoreDevHandleCommand(NoxCoreDevOwnerMessage(".owner"), NoxCoreDevMockClient);
-  assert.equal(NoxCoreDevSentMessages.length >= NoxCoreDevBeforeCommands + 4, true);
-  let NoxCoreDevFoundBotName = false;
-  for (const NoxCoreDevSentMessage of NoxCoreDevSentMessages) {
-    if (NoxCoreDevSentMessage.payload.text.includes("NoxWaFreeBot")) NoxCoreDevFoundBotName = true;
-  }
-  assert.equal(NoxCoreDevFoundBotName, true);
+  await handleCommand(ownerMessage(".ping"), NoxCoreDevMockClient);
+  await handleCommand(ownerMessage(".hello"), NoxCoreDevMockClient);
+  await handleCommand(ownerMessage(".alive"), NoxCoreDevMockClient);
+  await handleCommand(ownerMessage(".menu"), NoxCoreDevMockClient);
+  await handleCommand(ownerMessage(".owner"), NoxCoreDevMockClient);
+  assert.equal(NoxCoreDevSentMessages.length, NoxCoreDevBeforeCommands + 5);
+  assert.equal(NoxCoreDevSentMessages[NoxCoreDevBeforeCommands].payload.text, "🏓 Pong!");
+  assert.equal(NoxCoreDevSentMessages[NoxCoreDevBeforeCommands + 1].payload.text, "Hello from NoxWaFreeBot!");
+  assert.equal(NoxCoreDevSentMessages[NoxCoreDevBeforeCommands + 2].payload.text, "NoxWaFreeBot is online — NoxCoreDev.");
+  const NoxCoreDevMenuText = NoxCoreDevSentMessages[NoxCoreDevBeforeCommands + 3].payload.text;
+  assert.match(NoxCoreDevMenuText, /NoxWaFreeBot — Commands/);
+  assert.match(NoxCoreDevMenuText, /\.hello/);
+  assert.equal(NoxCoreDevSentMessages[NoxCoreDevBeforeCommands + 4].payload.text, "Owner: NoxCoreDev");
 
-  await NoxCoreDevHandleCommand(NoxCoreDevOwnerMessage(".self"), NoxCoreDevMockClient);
+  await handleCommand(ownerMessage(".self"), NoxCoreDevMockClient);
   assert.equal(NoxCoreDevConfig.mode, "self");
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "Private mode enabled.");
   const NoxCoreDevAfterSelf = NoxCoreDevSentMessages.length;
   const NoxCoreDevGuestMessage = {
     key: { remoteJid: "guest@s.whatsapp.net", fromMe: false },
     message: { conversation: ".ping" },
   };
-  await NoxCoreDevHandleCommand(NoxCoreDevGuestMessage, NoxCoreDevMockClient);
+  await handleCommand(NoxCoreDevGuestMessage, NoxCoreDevMockClient);
   assert.equal(NoxCoreDevSentMessages.length, NoxCoreDevAfterSelf);
-  await NoxCoreDevHandleCommand(NoxCoreDevOwnerMessage(".mode"), NoxCoreDevMockClient);
-  await NoxCoreDevHandleCommand(NoxCoreDevOwnerMessage(".public"), NoxCoreDevMockClient);
+  await handleCommand(ownerMessage(".mode"), NoxCoreDevMockClient);
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "Current mode: self");
+  await handleCommand(ownerMessage(".public"), NoxCoreDevMockClient);
   assert.equal(NoxCoreDevConfig.mode, "public");
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "Public mode enabled.");
+  await handleCommand({
+    key: { remoteJid: "guest@s.whatsapp.net", fromMe: false },
+    message: { conversation: ".self" },
+  }, NoxCoreDevMockClient);
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "This command is owner-only.");
 
   const NoxCoreDevGroupJid = "123456789-987654321@g.us";
-  const NoxCoreDevAdminMessage = NoxCoreDevOwnerMessage(".welcome on", NoxCoreDevGroupJid);
+  await handleCommand(ownerMessage(".welcome on"), NoxCoreDevMockClient);
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "This command can only be used in a group.");
+  await handleCommand(ownerMessage(".welcome maybe", NoxCoreDevGroupJid), NoxCoreDevMockClient);
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "Use `on` or `off`.");
+  const NoxCoreDevNonAdminMessage = {
+    key: { remoteJid: NoxCoreDevGroupJid, participant: "guest@s.whatsapp.net", fromMe: false },
+    message: { conversation: ".welcome on" },
+  };
+  await handleCommand(NoxCoreDevNonAdminMessage, NoxCoreDevMockClient);
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "Only group admins can change this setting.");
+  const NoxCoreDevAdminMessage = ownerMessage(".welcome on", NoxCoreDevGroupJid);
   NoxCoreDevAdminMessage.key.participant = NoxCoreDevTestOwnerJid;
-  await NoxCoreDevHandleCommand(NoxCoreDevAdminMessage, NoxCoreDevMockClient);
+  await handleCommand(NoxCoreDevAdminMessage, NoxCoreDevMockClient);
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "Welcome messages enabled.");
   const NoxCoreDevBeforeGroupEvents = NoxCoreDevSentMessages.length;
-  await NoxCoreDevHandleGroupParticipantsUpdate({
+  await handleGroupParticipantsUpdate({
     id: NoxCoreDevGroupJid,
     action: "add",
     participants: ["guest@s.whatsapp.net"],
   }, NoxCoreDevMockClient);
   assert.equal(NoxCoreDevSentMessages.length, NoxCoreDevBeforeGroupEvents + 1);
   assert.equal(NoxCoreDevSentMessages.at(-1).payload.mentions[0], "guest@s.whatsapp.net");
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "Welcome @guest to the group!");
 
   const NoxCoreDevAfterWelcome = NoxCoreDevSentMessages.length;
-  await NoxCoreDevHandleGroupParticipantsUpdate({
+  await handleGroupParticipantsUpdate({
     id: NoxCoreDevGroupJid,
     action: "promote",
     participants: ["guest@s.whatsapp.net"],
   }, NoxCoreDevMockClient);
-  await NoxCoreDevHandleGroupParticipantsUpdate({
+  await handleGroupParticipantsUpdate({
     id: "private@s.whatsapp.net",
     action: "add",
     participants: ["guest@s.whatsapp.net"],
   }, NoxCoreDevMockClient);
   assert.equal(NoxCoreDevSentMessages.length, NoxCoreDevAfterWelcome);
 
-  const NoxCoreDevGoodbyeAdminMessage = NoxCoreDevOwnerMessage(".goodbye on", NoxCoreDevGroupJid);
+  const NoxCoreDevGoodbyeAdminMessage = ownerMessage(".goodbye on", NoxCoreDevGroupJid);
   NoxCoreDevGoodbyeAdminMessage.key.participant = NoxCoreDevTestOwnerJid;
-  await NoxCoreDevHandleCommand(NoxCoreDevGoodbyeAdminMessage, NoxCoreDevMockClient);
+  await handleCommand(NoxCoreDevGoodbyeAdminMessage, NoxCoreDevMockClient);
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "Goodbye messages enabled.");
   const NoxCoreDevBeforeGoodbye = NoxCoreDevSentMessages.length;
-  await NoxCoreDevHandleGroupParticipantsUpdate({
+  await handleGroupParticipantsUpdate({
     id: NoxCoreDevGroupJid,
     action: "remove",
     participants: ["guest@s.whatsapp.net"],
   }, NoxCoreDevMockClient);
   assert.equal(NoxCoreDevSentMessages.length, NoxCoreDevBeforeGoodbye + 1);
-  assert.match(NoxCoreDevSentMessages.at(-1).payload.text, /Au revoir/);
+  assert.equal(NoxCoreDevSentMessages.at(-1).payload.text, "Goodbye @guest!");
 
-  process.stdout.write("NoxWaFreeBot mock tests passed: commands, modes, two newsletter JIDs, one reaction per post, and group-only add/remove messages.\n");
+  process.stdout.write("NoxWaFreeBot mock tests passed: English replies, commands and modes, two newsletter JIDs, one reaction per post, and group-only add/remove messages.\n");
 }
 
-function NoxCoreDevHandleTestFailure(error) {
+function handleTestFailure(error) {
   console.error(error);
   process.exitCode = 1;
 }
 
-NoxCoreDevRunMockTests().catch(NoxCoreDevHandleTestFailure);
+runMockTests().catch(handleTestFailure);

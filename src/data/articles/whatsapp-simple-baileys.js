@@ -32,14 +32,14 @@ const article = {
     title: "Un bot WhatsApp simple avec Baileys : du premier appairage aux commandes",
     excerpt: "NoxWaFreeBot, fichier par fichier : configuration centrale, commandes NoxCoreDev, appairage Baileys, deux newsletters autorisées et événements de groupe ciblés.",
     downloadLabel: "Télécharger la base complète (.zip)",
-    intro: "NoxWaFreeBot est le nom du bot; les fonctions personnalisées portent le préfixe NoxCoreDev. Cette base complète reprend la structure du projet fourni — session Baileys, gestionnaire de commandes et événement d’appairage — puis la rend cohérente avec l’identité et les fonctions demandées. Le ZIP joint contient le code source et les tests hors ligne, mais aucun numéro propriétaire réel, code d’appairage ou fichier de session.",
+    intro: "NoxWaFreeBot est le nom du bot; seules quelques fonctions liées au propriétaire portent le préfixe NoxCoreDev, tandis que les fonctions génériques gardent des noms courts. Cette base complète reprend la structure du projet fourni — session Baileys, gestionnaire de commandes et événement d’appairage — puis la rend cohérente avec l’identité et les fonctions demandées. Le ZIP joint contient le code source et les tests hors ligne, mais aucun numéro propriétaire réel, code d’appairage ou fichier de session.",
     tags: ["NoxWaFreeBot", "NoxCoreDev", "WhatsApp", "Baileys", "Node.js"],
     sections: [
       {
         heading: "La base et sa version Baileys",
         paragraphs: [
           "Le bot utilise Node.js 20+ et la version stable `@whiskeysockets/baileys` 6.7.24. Le code source de cette version expose bien `newsletterFollow(jid)` et `newsletterReactMessage(jid, serverId, reaction)`; ces noms sont vérifiés dans le paquet officiel, pas devinés à partir d’un exemple ancien.",
-          "La structure est volontairement simple : `index.js` lance le socket, `handler.js` aiguille les messages, `commands.js` contient les commandes, `newsletters.js` traite les deux cibles autorisées et `group-events.js` gère les événements de groupe. Chaque fonction locale est nommée avec le préfixe `NoxCoreDev`.",
+          "La structure est volontairement simple : `index.js` lance le socket, `handler.js` aiguille les messages, `commands.js` contient les commandes, `newsletters.js` traite les deux cibles autorisées et `group-events.js` gère les événements de groupe. Les fonctions utilitaires gardent des noms courts; le préfixe `NoxCoreDev` reste réservé à quelques fonctions liées au propriétaire.",
         ],
         codeBlocks: [NoxCoreDevBlocks.package],
         sources: [
@@ -82,7 +82,7 @@ const article = {
       {
         heading: "3. `handler.js` — router sans mêler commandes et newsletters",
         paragraphs: [
-          "Le handler ignore les messages sortants, les messages sans contenu et les statuts. Un JID de newsletter est transmis au traitement newsletter puis quitte immédiatement le flux des commandes. Les autres messages arrivent dans `NoxCoreDevHandleCommand`, qui ne répond que si le texte commence par le préfixe configuré.",
+          "Le handler ignore les messages sortants, les messages sans contenu et les statuts. Un JID de newsletter est transmis au traitement newsletter puis quitte immédiatement le flux des commandes. Les autres messages arrivent dans `handleCommand`, qui ne répond que si le texte commence par le préfixe configuré.",
           "Ce découpage évite qu’une publication de newsletter déclenche par hasard `.ping` ou une autre commande, et garde les réponses automatiques hors des conversations qui ne sont pas concernées.",
         ],
         codeBlocks: [NoxCoreDevBlocks.handler],
@@ -90,8 +90,9 @@ const article = {
       {
         heading: "4. `commands.js` — commandes, propriétaire et modes",
         paragraphs: [
-          "`.ping` répond une seule fois avec Pong; `.alive` confirme que NoxWaFreeBot est en ligne; `.menu` affiche les commandes configurées; `.owner` donne le nom `NoxCoreDev`. `.mode` montre le mode courant, tandis que `.self` et `.public` sont réservées au numéro propriétaire renseigné dans `config.js`.",
+          "`.ping` répond une seule fois avec Pong; `.hello` répond « Hello from NoxWaFreeBot! »; `.alive` confirme que NoxWaFreeBot est en ligne; `.menu` affiche les commandes configurées; `.owner` donne le nom `NoxCoreDev`. `.mode` montre le mode courant, tandis que `.self` et `.public` sont réservées au numéro propriétaire renseigné dans `config.js`.",
           "`.welcome on/off` et `.goodbye on/off` délèguent le réglage à `group-events.js`. Les commandes de contrôle n’ont pas d’effet quand le placeholder du propriétaire n’a pas été remplacé. Le mode change en mémoire et revient au réglage initial après redémarrage.",
+          "Les textes visibles dans les réponses du bot sont en anglais; l’article conserve ses explications en français et en anglais.",
         ],
         codeBlocks: [NoxCoreDevBlocks.commands],
       },
@@ -159,7 +160,7 @@ const article = {
           "Le ZIP peut être extrait dans son propre dossier. Après avoir configuré `ownerNumber`, installe les dépendances, lance `npm test` hors ligne, puis `npm start` pour effectuer l’appairage réel. Depuis le dépôt du portfolio, `npm run test:noxwafreebot` vérifie aussi que l’article et le code source restent synchronisés.",
         ],
         codeBlocks: [NoxCoreDevRunCommands],
-        ending: "La base garde une limite claire : une session Baileys, des fonctions préfixées NoxCoreDev, des commandes documentées, deux JID newsletter et des réponses de groupe déclenchées uniquement par les événements qui les concernent.",
+        ending: "La base garde une limite claire : une session Baileys, des fonctions utilitaires aux noms courts, quelques fonctions liées au propriétaire préfixées NoxCoreDev, deux JID newsletter et des réponses de groupe déclenchées uniquement par les événements qui les concernent.",
       },
     ],
     takeaways: [
@@ -173,14 +174,14 @@ const article = {
     title: "A simple WhatsApp bot with Baileys: pairing and first commands",
     excerpt: "NoxWaFreeBot, file by file: central configuration, NoxCoreDev commands, Baileys pairing, two allowed newsletters, and targeted group events.",
     downloadLabel: "Download the complete starter (.zip)",
-    intro: "NoxWaFreeBot is the bot name; custom functions use the NoxCoreDev prefix. This complete starter follows the supplied project’s structure—Baileys session, command handler, and pairing flow—then aligns it with the requested identity and features. The ZIP contains source code and offline tests, but no real owner number, pairing code, or session file.",
+    intro: "NoxWaFreeBot is the bot name; only a few owner-related functions use the NoxCoreDev prefix, while generic helpers keep short names. This complete starter follows the supplied project’s structure—Baileys session, command handler, and pairing flow—then aligns it with the requested identity and features. The ZIP contains source code and offline tests, but no real owner number, pairing code, or session file.",
     tags: ["NoxWaFreeBot", "NoxCoreDev", "WhatsApp", "Baileys", "Node.js"],
     sections: [
       {
         heading: "The starter and its Baileys version",
         paragraphs: [
           "The bot uses Node.js 20+ and the stable `@whiskeysockets/baileys` 6.7.24 release. Its official source exposes `newsletterFollow(jid)` and `newsletterReactMessage(jid, serverId, reaction)`; these names were checked against the published package, not guessed from an older example.",
-          "The structure stays simple: `index.js` starts the socket, `handler.js` routes messages, `commands.js` contains commands, `newsletters.js` handles the two allowed targets, and `group-events.js` handles group events. Every local function uses the `NoxCoreDev` prefix.",
+          "The structure stays simple: `index.js` starts the socket, `handler.js` routes messages, `commands.js` contains commands, `newsletters.js` handles the two allowed targets, and `group-events.js` handles group events. Generic helpers keep short names; the `NoxCoreDev` prefix is reserved for a few owner-related functions.",
         ],
         codeBlocks: [NoxCoreDevBlocks.package],
         sources: [
@@ -223,7 +224,7 @@ const article = {
       {
         heading: "3. `handler.js` — route messages without mixing commands and newsletters",
         paragraphs: [
-          "The handler ignores outgoing messages, empty messages, and status updates. A newsletter JID is passed to the newsletter handler and immediately leaves the command flow. Other messages reach `NoxCoreDevHandleCommand`, which responds only when text starts with the configured prefix.",
+          "The handler ignores outgoing messages, empty messages, and status updates. A newsletter JID is passed to the newsletter handler and immediately leaves the command flow. Other messages reach `handleCommand`, which responds only when text starts with the configured prefix.",
           "This split prevents a newsletter post from accidentally triggering `.ping` or another command, and keeps automatic replies away from unrelated conversations.",
         ],
         codeBlocks: [NoxCoreDevBlocks.handler],
@@ -231,8 +232,9 @@ const article = {
       {
         heading: "4. `commands.js` — commands, owner, and modes",
         paragraphs: [
-          "`.ping` replies once with Pong; `.alive` confirms NoxWaFreeBot is online; `.menu` lists configured commands; `.owner` displays `NoxCoreDev`. `.mode` shows the current mode, while `.self` and `.public` are reserved for the owner number configured in `config.js`.",
+          "`.ping` replies once with Pong; `.hello` replies “Hello from NoxWaFreeBot!”; `.alive` confirms NoxWaFreeBot is online; `.menu` lists configured commands; `.owner` displays `NoxCoreDev`. `.mode` shows the current mode, while `.self` and `.public` are reserved for the owner number configured in `config.js`.",
           "`.welcome on/off` and `.goodbye on/off` delegate their settings to `group-events.js`. Control commands have no effect until the owner placeholder is replaced. Mode changes remain in memory and reset to the initial value after restart.",
+          "All user-facing bot replies are in English; the article explanations remain available in both French and English.",
         ],
         codeBlocks: [NoxCoreDevBlocks.commands],
       },
@@ -300,7 +302,7 @@ const article = {
           "Extract the ZIP into its own folder. After configuring `ownerNumber`, install dependencies, run `npm test` offline, then use `npm start` for real pairing. From the portfolio repository, `npm run test:noxwafreebot` also verifies that article and source code stay in sync.",
         ],
         codeBlocks: [NoxCoreDevRunCommands],
-        ending: "The starter keeps a clear boundary: one Baileys session, NoxCoreDev-prefixed functions, documented commands, two newsletter JIDs, and group replies triggered only by the events they concern.",
+        ending: "The starter keeps a clear boundary: one Baileys session, short names for generic helpers, the NoxCoreDev prefix on a few owner-related functions, two newsletter JIDs, and group replies triggered only by relevant events.",
       },
     ],
     takeaways: [

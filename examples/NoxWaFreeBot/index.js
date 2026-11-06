@@ -7,64 +7,64 @@ import pino from "pino";
 import { createInterface } from "node:readline/promises";
 import { stdin, stdout } from "node:process";
 import { NoxCoreDevConfig } from "./config.js";
-import { NoxCoreDevHandleMessage } from "./handler.js";
-import { NoxCoreDevFollowNewsletters } from "./newsletters.js";
-import { NoxCoreDevHandleGroupParticipantsUpdate } from "./group-events.js";
+import { handleMessage } from "./handler.js";
+import { followNewsletters } from "./newsletters.js";
+import { handleGroupParticipantsUpdate } from "./group-events.js";
 
 let NoxCoreDevReconnectTimer = null;
 
-async function NoxCoreDevAsk(question) {
+async function ask(question) {
   const terminal = createInterface({ input: stdin, output: stdout });
   const answer = await terminal.question(question);
   terminal.close();
   return answer;
 }
 
-function NoxCoreDevIsDigit(character) {
+function isDigit(character) {
   return "0123456789".includes(character);
 }
 
-async function NoxCoreDevDispatchMessages(client, update) {
+async function dispatchMessages(client, update) {
   if (update.type !== "notify") return;
   for (const message of update.messages) {
-    await NoxCoreDevHandleMessage(message, client);
+    await handleMessage(message, client);
   }
 }
 
-function NoxCoreDevOnMessagesUpsert(client, update) {
-  NoxCoreDevDispatchMessages(client, update).catch(console.error);
+function onMessagesUpsert(client, update) {
+  dispatchMessages(client, update).catch(console.error);
 }
 
-function NoxCoreDevOnGroupParticipantsUpdate(client, update) {
-  NoxCoreDevHandleGroupParticipantsUpdate(update, client).catch(console.error);
+function onGroupParticipantsUpdate(client, update) {
+  handleGroupParticipantsUpdate(update, client).catch(console.error);
 }
 
-function NoxCoreDevRestartBot() {
-  NoxCoreDevStartBot().catch(console.error);
+function restartBot() {
+  startBot().catch(console.error);
 }
 
-function NoxCoreDevOnConnectionUpdate(client, update) {
+function onConnectionUpdate(client, update) {
   if (update.connection === "open") {
     if (NoxCoreDevReconnectTimer) {
       clearTimeout(NoxCoreDevReconnectTimer);
       NoxCoreDevReconnectTimer = null;
     }
-    console.log(NoxCoreDevConfig.botName + " connecté — " + NoxCoreDevConfig.ownerName + ".");
-    NoxCoreDevFollowNewsletters(client).catch(console.error);
+    console.log(NoxCoreDevConfig.botName + " connected — " + NoxCoreDevConfig.ownerName + ".");
+    followNewsletters(client).catch(console.error);
   }
   if (update.connection === "close") {
     const statusCode = update.lastDisconnect?.error?.output?.statusCode;
     if (statusCode === DisconnectReason.loggedOut) {
-      console.log("Session fermée. Supprime le dossier session puis relance l’appairage.");
+      console.log("Session logged out. Remove the session folder and start pairing again.");
       return;
     }
     if (!NoxCoreDevReconnectTimer) {
-      NoxCoreDevReconnectTimer = setTimeout(NoxCoreDevRestartBot, NoxCoreDevConfig.reconnectDelayMs);
+      NoxCoreDevReconnectTimer = setTimeout(restartBot, NoxCoreDevConfig.reconnectDelayMs);
     }
   }
 }
 
-async function NoxCoreDevStartBot() {
+async function startBot() {
   const { state, saveCreds } = await useMultiFileAuthState(NoxCoreDevConfig.sessionDirectory);
   const { version } = await fetchLatestBaileysVersion();
   const client = makeWASocket({
@@ -75,16 +75,16 @@ async function NoxCoreDevStartBot() {
   });
 
   client.ev.on("creds.update", saveCreds);
-  client.ev.on("messages.upsert", NoxCoreDevOnMessagesUpsert.bind(null, client));
-  client.ev.on("connection.update", NoxCoreDevOnConnectionUpdate.bind(null, client));
-  client.ev.on("group-participants.update", NoxCoreDevOnGroupParticipantsUpdate.bind(null, client));
+  client.ev.on("messages.upsert", onMessagesUpsert.bind(null, client));
+  client.ev.on("connection.update", onConnectionUpdate.bind(null, client));
+  client.ev.on("group-participants.update", onGroupParticipantsUpdate.bind(null, client));
 
   if (NoxCoreDevConfig.pairingCode && !state.creds.registered) {
-    const inputNumber = await NoxCoreDevAsk("Numéro WhatsApp avec indicatif, sans + : ");
-    const phoneNumber = inputNumber.split("").filter(NoxCoreDevIsDigit).join("");
+    const inputNumber = await ask("WhatsApp number with country code, digits only, no +: ");
+    const phoneNumber = inputNumber.split("").filter(isDigit).join("");
     const code = await client.requestPairingCode(phoneNumber);
-    console.log("Code d’appairage : " + code);
+    console.log("Pairing code: " + code);
   }
 }
 
-NoxCoreDevStartBot().catch(console.error);
+startBot().catch(console.error);

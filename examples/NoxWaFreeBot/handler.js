@@ -1,14 +1,14 @@
-import { NoxCoreDevHandleCommand } from "./commands.js";
-import { NoxCoreDevHandleNewsletterMessage } from "./newsletters.js";
+import { handleCommand } from "./commands.js";
+import { handleNewsletterMessage } from "./newsletters.js";
 
-export async function NoxCoreDevHandleMessage(message, client) {
+export async function handleMessage(message, client) {
   if (!message?.message || message.key.fromMe) return;
   const remoteJid = message.key.remoteJid || "";
   if (remoteJid === "status@broadcast") return;
 
   if (remoteJid.endsWith("@newsletter")) {
-    await NoxCoreDevHandleNewsletterMessage(message, client);
+    await handleNewsletterMessage(message, client);
     return;
   }
-  await NoxCoreDevHandleCommand(message, client);
+  await handleCommand(message, client);
 }

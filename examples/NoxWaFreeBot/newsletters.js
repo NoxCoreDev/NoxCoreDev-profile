@@ -6,12 +6,12 @@ export const NoxCoreDevReactionEmojis = NoxCoreDevConfig.reactionEmojis;
 const NoxCoreDevFollowAttempts = new Set();
 const NoxCoreDevReactedMessages = new Set();
 
-function NoxCoreDevChooseReaction() {
+function chooseReaction() {
   const index = Math.floor(Math.random() * NoxCoreDevReactionEmojis.length);
   return NoxCoreDevReactionEmojis[index];
 }
 
-export async function NoxCoreDevFollowNewsletters(client) {
+export async function followNewsletters(client) {
   if (!NoxCoreDevConfig.autoFollowNewsletters) return;
   for (const jid of NoxCoreDevNewsletterJids) {
     if (NoxCoreDevFollowAttempts.has(jid)) continue;
@@ -24,7 +24,7 @@ export async function NoxCoreDevFollowNewsletters(client) {
   }
 }
 
-export async function NoxCoreDevHandleNewsletterMessage(message, client) {
+export async function handleNewsletterMessage(message, client) {
   const jid = message?.key?.remoteJid || "";
   if (!jid.endsWith("@newsletter")) return false;
   if (!NoxCoreDevNewsletterJids.includes(jid)) return true;
@@ -36,7 +36,7 @@ export async function NoxCoreDevHandleNewsletterMessage(message, client) {
   if (NoxCoreDevReactedMessages.has(messageKey)) return true;
   NoxCoreDevReactedMessages.add(messageKey);
 
-  const emoji = NoxCoreDevChooseReaction();
+  const emoji = chooseReaction();
   try {
     await client.newsletterReactMessage(jid, String(serverId), emoji);
   } catch (error) {

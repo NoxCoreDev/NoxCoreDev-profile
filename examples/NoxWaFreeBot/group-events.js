@@ -2,7 +2,7 @@ import { NoxCoreDevConfig } from "./config.js";
 
 export const NoxCoreDevGroupSettings = new Map();
 
-function NoxCoreDevGetGroupSettings(groupJid) {
+function getGroupSettings(groupJid) {
   let settings = NoxCoreDevGroupSettings.get(groupJid);
   if (!settings) {
     settings = {
@@ -14,16 +14,16 @@ function NoxCoreDevGetGroupSettings(groupJid) {
   return settings;
 }
 
-export async function NoxCoreDevSetGroupFeature(message, client, args, feature) {
+export async function setGroupFeature(message, client, args, feature) {
   const groupJid = message.key.remoteJid || "";
   if (!groupJid.endsWith("@g.us")) {
-    await client.sendMessage(groupJid, { text: "Cette commande se règle dans un groupe." });
+    await client.sendMessage(groupJid, { text: "This command can only be used in a group." });
     return;
   }
 
   const value = (args[0] || "").toLowerCase();
   if (value !== "on" && value !== "off") {
-    await client.sendMessage(groupJid, { text: "Utilise on ou off." });
+    await client.sendMessage(groupJid, { text: "Use `on` or `off`." });
     return;
   }
 
@@ -37,23 +37,25 @@ export async function NoxCoreDevSetGroupFeature(message, client, args, feature) 
     }
   }
   if (!senderIsAdmin) {
-    await client.sendMessage(groupJid, { text: "Option réservée aux administrateurs du groupe." });
+    await client.sendMessage(groupJid, { text: "Only group admins can change this setting." });
     return;
   }
 
-  const settings = NoxCoreDevGetGroupSettings(groupJid);
+  const settings = getGroupSettings(groupJid);
   settings[feature] = value === "on";
   NoxCoreDevGroupSettings.set(groupJid, settings);
-  await client.sendMessage(groupJid, { text: feature + " : " + value });
+  const featureLabel = feature === "welcome" ? "Welcome messages" : "Goodbye messages";
+  const featureStatus = value === "on" ? "enabled." : "disabled.";
+  await client.sendMessage(groupJid, { text: featureLabel + " " + featureStatus });
 }
 
-export async function NoxCoreDevHandleGroupParticipantsUpdate(update, client) {
+export async function handleGroupParticipantsUpdate(update, client) {
   const groupJid = update?.id || "";
   if (!groupJid.endsWith("@g.us")) return;
   if (update.action !== "add" && update.action !== "remove") return;
 
   const feature = update.action === "add" ? "welcome" : "goodbye";
-  const settings = NoxCoreDevGetGroupSettings(groupJid);
+  const settings = getGroupSettings(groupJid);
   if (!settings[feature]) return;
 
   const template = NoxCoreDevConfig[feature].message;

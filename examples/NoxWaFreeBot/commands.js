@@ -1,62 +1,67 @@
 import { NoxCoreDevConfig } from "./config.js";
-import { NoxCoreDevSetGroupFeature } from "./group-events.js";
+import { setGroupFeature } from "./group-events.js";
 
-async function NoxCoreDevSendReply(message, client, text) {
+async function sendReply(message, client, text) {
   await client.sendMessage(message.key.remoteJid, { text });
 }
 
-async function NoxCoreDevPingCommand(message, client) {
-  await NoxCoreDevSendReply(message, client, "🏓 Pong !");
+async function pingCommand(message, client) {
+  await sendReply(message, client, "🏓 Pong!");
 }
 
-async function NoxCoreDevAliveCommand(message, client) {
-  await NoxCoreDevSendReply(message, client, NoxCoreDevConfig.botName + " est en ligne — NoxCoreDev.");
+async function helloCommand(message, client) {
+  await sendReply(message, client, "Hello from NoxWaFreeBot!");
 }
 
-async function NoxCoreDevMenuCommand(message, client) {
+async function aliveCommand(message, client) {
+  await sendReply(message, client, NoxCoreDevConfig.botName + " is online — NoxCoreDev.");
+}
+
+async function menuCommand(message, client) {
   const menu = NoxCoreDevConfig.commands.join("\n");
-  await NoxCoreDevSendReply(message, client, NoxCoreDevConfig.botName + "\n" + menu);
+  await sendReply(message, client, NoxCoreDevConfig.botName + " — Commands\n" + menu);
 }
 
-async function NoxCoreDevModeCommand(message, client) {
-  await NoxCoreDevSendReply(message, client, "Mode actuel : " + NoxCoreDevConfig.mode);
+async function modeCommand(message, client) {
+  await sendReply(message, client, "Current mode: " + NoxCoreDevConfig.mode);
 }
 
-async function NoxCoreDevSelfCommand(message, client) {
+async function selfCommand(message, client) {
   NoxCoreDevConfig.mode = "self";
-  await NoxCoreDevSendReply(message, client, "Mode privé activé.");
+  await sendReply(message, client, "Private mode enabled.");
 }
 
-async function NoxCoreDevPublicCommand(message, client) {
+async function publicCommand(message, client) {
   NoxCoreDevConfig.mode = "public";
-  await NoxCoreDevSendReply(message, client, "Mode public activé.");
+  await sendReply(message, client, "Public mode enabled.");
 }
 
 async function NoxCoreDevOwnerCommand(message, client) {
-  await NoxCoreDevSendReply(message, client, "Propriétaire : " + NoxCoreDevConfig.ownerName);
+  await sendReply(message, client, "Owner: " + NoxCoreDevConfig.ownerName);
 }
 
-async function NoxCoreDevWelcomeCommand(message, client, args) {
-  await NoxCoreDevSetGroupFeature(message, client, args, "welcome");
+async function welcomeCommand(message, client, args) {
+  await setGroupFeature(message, client, args, "welcome");
 }
 
-async function NoxCoreDevGoodbyeCommand(message, client, args) {
-  await NoxCoreDevSetGroupFeature(message, client, args, "goodbye");
+async function goodbyeCommand(message, client, args) {
+  await setGroupFeature(message, client, args, "goodbye");
 }
 
 const NoxCoreDevCommands = new Map([
-  ["ping", NoxCoreDevPingCommand],
-  ["alive", NoxCoreDevAliveCommand],
-  ["menu", NoxCoreDevMenuCommand],
-  ["mode", NoxCoreDevModeCommand],
-  ["self", NoxCoreDevSelfCommand],
-  ["public", NoxCoreDevPublicCommand],
+  ["ping", pingCommand],
+  ["hello", helloCommand],
+  ["alive", aliveCommand],
+  ["menu", menuCommand],
+  ["mode", modeCommand],
+  ["self", selfCommand],
+  ["public", publicCommand],
   ["owner", NoxCoreDevOwnerCommand],
-  ["welcome", NoxCoreDevWelcomeCommand],
-  ["goodbye", NoxCoreDevGoodbyeCommand],
+  ["welcome", welcomeCommand],
+  ["goodbye", goodbyeCommand],
 ]);
 
-function NoxCoreDevGetSenderNumber(message) {
+function getSenderNumber(message) {
   const senderJid = message.key.participant || message.key.remoteJid || "";
   return senderJid.split("@")[0].split(":")[0];
 }
@@ -64,10 +69,10 @@ function NoxCoreDevGetSenderNumber(message) {
 function NoxCoreDevIsOwner(message) {
   if (message.key.fromMe === true) return true;
   if (NoxCoreDevConfig.ownerNumber === "OWNER_NUMBER") return false;
-  return NoxCoreDevGetSenderNumber(message) === NoxCoreDevConfig.ownerNumber;
+  return getSenderNumber(message) === NoxCoreDevConfig.ownerNumber;
 }
 
-export async function NoxCoreDevHandleCommand(message, client) {
+export async function handleCommand(message, client) {
   const remoteJid = message.key.remoteJid || "";
   if (remoteJid === "status@broadcast") return;
 
@@ -86,7 +91,7 @@ export async function NoxCoreDevHandleCommand(message, client) {
   const isOwner = NoxCoreDevIsOwner(message);
   if (NoxCoreDevConfig.mode === "self" && !isOwner) return;
   if ((commandName === "mode" || commandName === "self" || commandName === "public") && !isOwner) {
-    await NoxCoreDevSendReply(message, client, "Commande réservée au propriétaire.");
+    await sendReply(message, client, "This command is owner-only.");
     return;
   }
   await command(message, client, parts);
