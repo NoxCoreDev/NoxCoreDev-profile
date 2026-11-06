@@ -70,9 +70,9 @@ for (const article of articles) {
   html = setMeta(html, "property", "og:url", url);
   html = setMeta(html, "property", "og:image", image);
   html = setMeta(html, "property", "og:image:secure_url", image);
-  html = setMeta(html, "property", "og:image:type", "image/jpeg");
-  html = setMeta(html, "property", "og:image:width", "1600");
-  html = setMeta(html, "property", "og:image:height", "900");
+  html = setMeta(html, "property", "og:image:type", article.ogImageType || "image/jpeg");
+  html = setMeta(html, "property", "og:image:width", article.ogImageWidth || "1600");
+  html = setMeta(html, "property", "og:image:height", article.ogImageHeight || "900");
   html = setMeta(html, "property", "og:image:alt", localized.title);
   html = setMeta(html, "property", "article:published_time", `${article.publishedAt}T00:00:00Z`);
   html = setMeta(html, "name", "twitter:card", "summary_large_image");

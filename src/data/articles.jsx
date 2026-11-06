@@ -1,3 +1,5 @@
+import botWhatsappSimple from "./articles/whatsapp-simple-baileys.js";
+
 export const blogAuthor = {
   name: "Othman",
   brand: "NoxCoreDev",
@@ -334,6 +336,7 @@ export const articles = [
       ],
     },
   },
+  botWhatsappSimple,
 ];
 
 export function getLatestArticles(list = articles, limit = 3) {
@@ -352,6 +355,9 @@ export function getArticleReadingMinutes(post) {
       ...(section.paragraphs || []),
       ...(section.bullets || []),
       section.ending || "",
+      section.callout?.title || "",
+      section.callout?.body || "",
+      ...(section.codeBlocks || []).map((block) => block.code),
     ]),
     ...(post.takeaways || []),
   ].join(" ");

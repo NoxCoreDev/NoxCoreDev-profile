@@ -30,7 +30,7 @@ export default function ArticleCards({ posts }) {
             <Link
               to={`/blog/${article.slug}`}
               aria-label={`${t("blog.readPost")}: ${localized.title}`}
-              className="relative block aspect-[16/9] overflow-hidden bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              className={`relative block ${article.coverAspect === "4:5" ? "aspect-[4/5]" : article.coverAspect === "portrait" ? "aspect-[9/10]" : "aspect-[16/9]"} overflow-hidden bg-slate-900 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary`}
             >
               <img
                 src={article.cover}

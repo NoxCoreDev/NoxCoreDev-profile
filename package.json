@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "dev": "vite",
-    "build": "vite build && node scripts/generate-article-previews.mjs",
+    "build": "node scripts/sync-noxwafreebot-article-code.mjs && vite build && node scripts/generate-article-previews.mjs",
+    "test:noxwafreebot": "node scripts/sync-noxwafreebot-article-code.mjs && node examples/NoxWaFreeBot/scripts/mock-test.mjs && node scripts/test-noxwafreebot-article.mjs",
     "preview": "vite preview --port $PORT --host",
     "start": "vite preview --port $PORT --host"
   },

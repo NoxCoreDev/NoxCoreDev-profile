@@ -1,6 +1,8 @@
 import React from "react";
 import { useParams, Link } from "react-router-dom";
-import { ArrowLeft, ArrowUpRight, CalendarDays, Check, Clock3 } from "lucide-react";
+import { ArrowLeft, ArrowUpRight, CalendarDays, Check, Clock3, Download } from "lucide-react";
+import { useState } from "react";
+import { Copy } from "lucide-react";
 import Footer from "../components/Footer";
 import ArticleSocialActions from "../components/ArticleSocialActions";
 import { blogAuthor, articles, getArticleReadingMinutes } from "../data/articles";
@@ -12,6 +14,56 @@ function formatDate(value, language) {
     month: "long",
     year: "numeric",
   }).format(new Date(`${value}T00:00:00`));
+}
+
+function renderInlineCode(text) {
+  return String(text).split(/(`[^`]+`)/g).map((part, index) => {
+    const isCode = part.startsWith("`") && part.endsWith("`");
+    return isCode
+      ? <code key={index} className="rounded bg-slate-200/80 px-1.5 py-0.5 font-mono text-[0.9em] text-slate-900 dark:bg-slate-800 dark:text-slate-100">{part.slice(1, -1)}</code>
+      : part;
+  });
+}
+
+function ArticleCodeBlock({ block, language }) {
+  const [copyState, setCopyState] = useState("");
+  const copyCode = async () => {
+    try {
+      if (!navigator.clipboard?.writeText) throw new Error("Clipboard API unavailable");
+      await navigator.clipboard.writeText(block.code);
+      setCopyState("copied");
+    } catch {
+      setCopyState("failed");
+    }
+  };
+
+  return (
+    <div className="overflow-hidden rounded-xl border border-slate-700 bg-slate-950 shadow-sm">
+      <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 px-4 py-3 text-sm">
+        <div className="flex flex-wrap items-center gap-2">
+          <span className="font-mono font-semibold text-slate-100">{block.label}</span>
+          <span className="rounded bg-slate-800 px-2 py-0.5 text-xs uppercase tracking-wide text-slate-400">{block.language}</span>
+        </div>
+        <button
+          type="button"
+          onClick={copyCode}
+          aria-label={`${language === "fr" ? "Copier le code" : "Copy code"} : ${block.label}`}
+          className="inline-flex items-center gap-2 rounded-md border border-slate-700 px-3 py-1.5 font-semibold text-slate-200 transition hover:border-primary hover:text-white focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+        >
+          {copyState === "copied" ? <Check size={15} aria-hidden="true" /> : <Copy size={15} aria-hidden="true" />}
+          {copyState === "copied"
+            ? (language === "fr" ? "Copié" : "Copied")
+            : (language === "fr" ? "Copier" : "Copy")}
+        </button>
+      </div>
+      <pre className="overflow-x-auto p-4 text-sm leading-6 text-slate-100 sm:p-5"><code>{block.code}</code></pre>
+      {copyState === "failed" && (
+        <p role="status" className="border-t border-slate-800 px-4 py-2 text-xs text-amber-300">
+          {language === "fr" ? "La copie automatique n’est pas disponible dans ce navigateur." : "Clipboard access is unavailable in this browser."}
+        </p>
+      )}
+    </div>
+  );
 }
 
 export default function Article() {
@@ -79,31 +131,75 @@ export default function Article() {
           </header>
 
           <figure className="mb-10 overflow-hidden rounded-2xl border border-slate-200 shadow-lg dark:border-slate-800">
-            <img src={article.cover} alt={localized.title} className="aspect-[16/9] w-full object-cover" />
+            <img
+              src={article.cover}
+              alt={localized.title}
+              className={`w-full ${article.coverAspect === "4:5" ? "aspect-[4/5] object-cover" : article.coverAspect === "portrait" ? "aspect-[9/10] object-cover" : "aspect-[16/9] object-cover"}`}
+            />
           </figure>
 
           <div className="rounded-2xl border border-slate-200 bg-white p-6 text-lg leading-8 text-slate-700 shadow-sm dark:border-slate-800 dark:bg-slate-900 dark:text-slate-300 sm:p-8">
-            <p className="font-medium leading-8">{localized.intro}</p>
+            <p className="font-medium leading-8">{renderInlineCode(localized.intro)}</p>
           </div>
+
+          {article.downloadUrl && (
+            <div className="mt-6">
+              <a
+                href={article.downloadUrl}
+                download
+                className="inline-flex items-center gap-2 rounded-lg bg-primary px-5 py-3 font-bold text-white shadow transition hover:brightness-110 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-primary"
+              >
+                <Download size={18} aria-hidden="true" /> {localized.downloadLabel || (language === "fr" ? "Télécharger le ZIP" : "Download ZIP")}
+              </a>
+            </div>
+          )}
 
           <div className="mt-10 space-y-10">
             {localized.sections.map((section) => (
               <section key={section.heading}>
-                <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white sm:text-3xl">{section.heading}</h2>
+                <h2 className="text-2xl font-extrabold text-slate-900 dark:text-white sm:text-3xl">{renderInlineCode(section.heading)}</h2>
                 <div className="mt-4 space-y-5 text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">
-                  {section.paragraphs.map((paragraph, index) => <p key={index}>{paragraph}</p>)}
+                  {section.paragraphs.map((paragraph, index) => <p key={index}>{renderInlineCode(paragraph)}</p>)}
                 </div>
+                {section.callout && (
+                  <aside className="mt-5 rounded-xl border-l-4 border-primary bg-primary/5 p-5 dark:bg-primary/10">
+                    <h3 className="font-bold text-slate-900 dark:text-white">{renderInlineCode(section.callout.title)}</h3>
+                    <p className="mt-2 leading-7 text-slate-700 dark:text-slate-300">{renderInlineCode(section.callout.body)}</p>
+                  </aside>
+                )}
+                {section.codeBlocks?.map((block, index) => (
+                  <ArticleCodeBlock key={`${block.label}-${index}`} block={block} language={language} />
+                ))}
+                {section.sources?.length > 0 && (
+                  <aside className="mt-5 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900">
+                    <h3 className="font-bold text-slate-900 dark:text-white">{language === "fr" ? "Sources officielles" : "Official sources"}</h3>
+                    <ul className="mt-3 space-y-2">
+                      {section.sources.map((source) => (
+                        <li key={source.href}>
+                          <a
+                            href={source.href}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="font-medium text-primary underline-offset-4 hover:underline"
+                          >
+                            {source.label[language] || source.label.fr}
+                          </a>
+                        </li>
+                      ))}
+                    </ul>
+                  </aside>
+                )}
                 {section.bullets && (
                   <ul className="mt-5 space-y-3 rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-800 dark:bg-slate-900 sm:p-6">
                     {section.bullets.map((bullet) => (
                       <li key={bullet} className="flex items-start gap-3 leading-7 text-slate-700 dark:text-slate-300">
                         <Check size={18} className="mt-1 shrink-0 text-primary" aria-hidden="true" />
-                        <span>{bullet}</span>
+                        <span>{renderInlineCode(bullet)}</span>
                       </li>
                     ))}
                   </ul>
                 )}
-                {section.ending && <p className="mt-5 text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">{section.ending}</p>}
+                {section.ending && <p className="mt-5 text-base leading-8 text-slate-700 dark:text-slate-300 sm:text-lg">{renderInlineCode(section.ending)}</p>}
               </section>
             ))}
           </div>
@@ -114,7 +210,7 @@ export default function Article() {
               {localized.takeaways.map((item) => (
                 <li key={item} className="flex items-start gap-3 leading-7 text-slate-700 dark:text-slate-200">
                   <ArrowUpRight size={18} className="mt-1 shrink-0 text-primary" aria-hidden="true" />
-                  <span>{item}</span>
+                  <span>{renderInlineCode(item)}</span>
                 </li>
               ))}
             </ul>
