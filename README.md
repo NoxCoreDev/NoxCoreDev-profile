@@ -3,7 +3,7 @@
 A bilingual (French/English) portfolio for Othman, also known as **NoxCoreDev**. This is a public repository, and the project’s code is released under the MIT License. You can clone it, customize it, and use it as the starting point for your own portfolio, as long as you keep the relevant license and attribution notices.
 
 <p align="center">
-  <a href="https://noxcoredev-portfolio.vercel.app"><strong>View the live portfolio</strong></a>
+  <a href="https://noxcoredev.is-a.dev"><strong>View the live portfolio</strong></a>
   ·
   <a href="https://github.com/NoxCoreDev/NoxCoreDev-Profile/fork"><strong>Fork this repository</strong></a>
 </p>
@@ -113,7 +113,7 @@ src/
 
 ## Public links
 
-- **Portfolio:** [noxcoredev-portfolio.vercel.app](https://noxcoredev-portfolio.vercel.app)
+- **Portfolio:** [noxcoredev.is-a.dev](https://noxcoredev.is-a.dev)
 - **GitHub:** [github.com/NoxCoreDev](https://github.com/NoxCoreDev)
 - **Email:** [devnoxinc@gmail.com](mailto:devnoxinc@gmail.com)
 - **Telegram:** [@Noxmodai](https://t.me/Noxmodai)

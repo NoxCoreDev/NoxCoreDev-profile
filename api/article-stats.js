@@ -3,7 +3,7 @@ const ARTICLE_SLUGS = require("../src/data/article-slugs.json");
 
 const VIEW_WINDOW_SECONDS = 24 * 60 * 60;
 const RATE_LIMIT_PER_MINUTE = 120;
-const DEFAULT_SITE_URL = "https://noxcoredev-portfolio.vercel.app";
+const DEFAULT_SITE_URL = "https://noxcoredev.is-a.dev";
 
 const recordViewScript = `
 local created = redis.call('SET', KEYS[1], '1', 'NX', 'EX', ARGV[1])

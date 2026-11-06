@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://noxcoredev-portfolio.vercel.app/</loc>
+    <loc>https://noxcoredev.is-a.dev/</loc>
   </url>
   <url>
-    <loc>https://noxcoredev-portfolio.vercel.app/projects</loc>
+    <loc>https://noxcoredev.is-a.dev/projects</loc>
   </url>
   <url>
-    <loc>https://noxcoredev-portfolio.vercel.app/blog</loc>
+    <loc>https://noxcoredev.is-a.dev/blog</loc>
   </url>
   <url>
-    <loc>https://noxcoredev-portfolio.vercel.app/blog/nox-nx-sessions-whatsapp</loc>
+    <loc>https://noxcoredev.is-a.dev/blog/nox-nx-sessions-whatsapp</loc>
   </url>
   <url>
-    <loc>https://noxcoredev-portfolio.vercel.app/blog/spider-nx-code-appairage</loc>
+    <loc>https://noxcoredev.is-a.dev/blog/spider-nx-code-appairage</loc>
   </url>
   <url>
-    <loc>https://noxcoredev-portfolio.vercel.app/blog/mon-approche-bots-automatisation</loc>
+    <loc>https://noxcoredev.is-a.dev/blog/mon-approche-bots-automatisation</loc>
   </url>
   <url>
-    <loc>https://noxcoredev-portfolio.vercel.app/blog/bot-whatsapp-simple-baileys</loc>
+    <loc>https://noxcoredev.is-a.dev/blog/bot-whatsapp-simple-baileys</loc>
   </url>
 </urlset>

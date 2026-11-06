@@ -5,7 +5,7 @@ import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const siteUrl = (process.env.SITE_URL || "https://noxcoredev-portfolio.vercel.app").replace(/\/$/, "");
+const siteUrl = (process.env.SITE_URL || "https://noxcoredev.is-a.dev").replace(/\/$/, "");
 const manifest = JSON.parse(await readFile(path.join(root, "src/data/article-slugs.json"), "utf8"));
 const server = await createServer({
   configFile: path.join(root, "vite.config.mjs"),
