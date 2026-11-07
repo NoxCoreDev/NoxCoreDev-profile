@@ -101,6 +101,7 @@ sudo systemctl enable --now noxhosting-worker.service`,
 const article = {
   id: 5,
   slug: "nox-hosting-theme-pterodactyl",
+  forkUrl: "https://github.com/NoxCoreDev/Noxhostingtheme/fork",
   publishedAt: "2026-11-07",
   cover: "/blog/nox-hosting-cover.png",
   ogImage: "/blog/nox-hosting-cover.png",
@@ -124,7 +125,6 @@ const article = {
     category: "Projets & Hébergement",
     title: "NOX HOSTING : mon panneau de gestion pour serveurs de jeux",
     excerpt: "Découvre NOX HOSTING : une interface de gestion à l’identité sombre et bleue, un espace pour les administrateurs et les utilisateurs, et une installation complète sur Ubuntu 24.04.",
-    forkCta: { label: "Forker ce dépôt", href: "https://github.com/NoxCoreDev/Noxhostingtheme/fork" },
     intro: "NOX HOSTING est mon projet de panneau web pour organiser et gérer des serveurs de jeux. J’ai donné à l’interface une identité visuelle propre à la marque et pensé le parcours pour réunir au même endroit les outils de gestion, du côté administrateur comme du côté utilisateur.",
     tags: ["NOX HOSTING", "Serveurs de jeux", "Hébergement", "Ubuntu 24.04", "Panel de gestion"],
     sections: [
@@ -186,7 +186,6 @@ const article = {
     category: "Projects & Hosting",
     title: "NOX HOSTING: my game-server management panel",
     excerpt: "Meet NOX HOSTING: a dark-and-blue management interface, spaces for administrators and users, and a complete Ubuntu 24.04 installation path.",
-    forkCta: { label: "Fork this repo", href: "https://github.com/NoxCoreDev/Noxhostingtheme/fork" },
     intro: "NOX HOSTING is my web-panel project for organizing and managing game servers. I gave the interface a visual identity of its own and shaped the journey to bring management tools together for both administrators and users.",
     tags: ["NOX HOSTING", "Game servers", "Hosting", "Ubuntu 24.04", "Management panel"],
     sections: [
