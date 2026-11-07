@@ -1,4 +1,5 @@
 import botWhatsappSimple from "./articles/whatsapp-simple-baileys.js";
+import articleNoxHosting from "./articles/nox-hosting.js";
 
 export const blogAuthor = {
   name: "Othman",
@@ -337,6 +338,7 @@ export const articles = [
     },
   },
   botWhatsappSimple,
+  articleNoxHosting,
 ];
 
 export function getLatestArticles(list = articles, limit = 3) {

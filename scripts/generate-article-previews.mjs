@@ -1,5 +1,5 @@
 import assert from "node:assert/strict";
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { createServer } from "vite";
@@ -27,6 +27,26 @@ assert.deepEqual(
   [...manifest].sort(),
   "Update src/data/article-slugs.json whenever an article slug is added or changed.",
 );
+
+const publicDirectory = path.resolve(root, "public");
+for (const article of articles) {
+  const images = [
+    ["cover", article.cover],
+    ["Open Graph image", article.ogImage],
+    ...(article.illustrations || []).map((illustration, index) => [`illustrations[${index}]`, illustration.src]),
+  ];
+  for (const [field, asset] of images) {
+    if (!asset) continue;
+    assert.ok(asset.startsWith("/") && !asset.startsWith("//"), `${article.slug}: ${field} must be an absolute local public/ path.`);
+    const assetPath = path.resolve(publicDirectory, asset.slice(1));
+    assert.ok(assetPath.startsWith(`${publicDirectory}${path.sep}`), `${article.slug}: ${field} must stay inside public/.`);
+    try {
+      await access(assetPath);
+    } catch {
+      assert.fail(`${article.slug}: missing ${field} file at public${asset}.`);
+    }
+  }
+}
 
 const escapeHtml = (value) => String(value).replace(/[&<>"']/g, (character) => ({
   "&": "&amp;",

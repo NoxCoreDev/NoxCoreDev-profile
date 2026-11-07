@@ -41,7 +41,7 @@ function ArticleCodeBlock({ block, language }) {
     <div className="overflow-hidden rounded-xl border border-slate-700 bg-slate-950 shadow-sm">
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 px-4 py-3 text-sm">
         <div className="flex flex-wrap items-center gap-2">
-          <span className="font-mono font-semibold text-slate-100">{block.label}</span>
+          <span className="font-mono font-semibold text-slate-100">{typeof block.label === "string" ? block.label : (block.label[language] || block.label.fr)}</span>
           <span className="rounded bg-slate-800 px-2 py-0.5 text-xs uppercase tracking-wide text-slate-400">{block.language}</span>
         </div>
         <button
@@ -143,6 +143,20 @@ export default function Article() {
               <p className="font-medium leading-8">{renderInlineCode(localized.intro)}</p>
             </div>
           )}
+
+          {article.illustrations?.map((illustration, index) => (
+            <figure key={`${illustration.src}-${index}`} className="mt-8 rounded-2xl border border-slate-200 bg-white p-3 shadow-sm dark:border-slate-800 dark:bg-slate-900 sm:p-5">
+              <img
+                src={illustration.src}
+                alt={illustration.alt[language] || illustration.alt.fr}
+                loading="lazy"
+                className="mx-auto block max-h-[900px] max-w-full rounded-xl object-contain"
+              />
+              <figcaption className="mx-auto mt-3 max-w-2xl text-center text-sm leading-6 text-slate-500 dark:text-slate-400">
+                {illustration.caption[language] || illustration.caption.fr}
+              </figcaption>
+            </figure>
+          ))}
 
           <div className="mt-10 space-y-10">
             {localized.sections.map((section) => (
