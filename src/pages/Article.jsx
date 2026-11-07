@@ -103,6 +103,19 @@ export default function Article() {
               {localized.title}
             </h1>
             <p className="mt-5 text-lg leading-relaxed text-slate-600 dark:text-slate-300 sm:text-xl">{localized.excerpt}</p>
+            {localized.forkCta && (
+              <div className="mt-4">
+                <a
+                  href={localized.forkCta.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 rounded-lg bg-primary px-4 py-2.5 font-semibold text-white shadow-sm transition hover:opacity-90 focus-visible:outline focus-visible:outline-2 focus-visible:outline-primary"
+                >
+                  {localized.forkCta.label}
+                  <ArrowUpRight size={17} aria-hidden="true" />
+                </a>
+              </div>
+            )}
 
             <div className="mt-7 flex flex-col gap-5 border-y border-slate-200 py-5 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
               <div className="flex items-center gap-3">
