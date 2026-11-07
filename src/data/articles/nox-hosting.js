@@ -111,12 +111,12 @@ const article = {
     {
       src: "/blog/nox-hosting-login.jpg",
       alt: {
-        fr: "Capture mobile de l’écran de connexion NOX HOSTING, avec le formulaire et le bouton bleu.",
-        en: "Mobile screenshot of the NOX HOSTING sign-in screen, with its form and blue button.",
+        fr: "Page de connexion NOX HOSTING sur mobile.",
+        en: "NOX HOSTING sign-in page on mobile.",
       },
       caption: {
-        fr: "L’écran de connexion NOX HOSTING tel qu’il apparaît sur la capture fournie; les champs sont vides.",
-        en: "The NOX HOSTING sign-in screen as shown in the supplied screenshot; the fields are blank.",
+        fr: "Page de connexion NOX HOSTING sur mobile.",
+        en: "NOX HOSTING sign-in page on mobile.",
       },
     },
   ],
@@ -143,7 +143,7 @@ const article = {
         heading: "Une identité NOX visible dès la connexion",
         paragraphs: [
           "J’ai choisi une direction graphique sombre, avec le logo NOX HOSTING au premier plan et le bleu pour mettre en évidence l’action principale. La page de connexion reste lisible : le formulaire, les champs de compte et le bouton d’entrée sont faciles à repérer.",
-          "La capture jointe montre cette interface sur mobile, avec les champs laissés vides. Elle permet de voir concrètement la marque et l’écran d’accueil du projet; elle ne prétend pas montrer une session déjà connectée. La couverture de l’article reprend le visuel NOX HOSTING utilisé pour présenter le projet.",
+          "Cette page ouvre l’espace de gestion NOX HOSTING. Après connexion, les utilisateurs retrouvent les serveurs qui leur sont attribués, tandis que l’administration gère les nœuds et les comptes.",
         ],
       },
       {
@@ -204,7 +204,7 @@ const article = {
         heading: "A NOX identity from the sign-in screen",
         paragraphs: [
           "I chose a dark visual direction, with the NOX HOSTING logo up front and blue to highlight the primary action. The sign-in page stays easy to scan: the form, account fields, and entry button are easy to find.",
-          "The supplied screenshot shows this interface on a phone, with the fields left blank. It gives a concrete view of the brand and the project’s entry screen; it is not presented as an authenticated session. The article cover uses the NOX HOSTING visual made to introduce the project.",
+          "This page opens the NOX HOSTING management area. After signing in, users can find their assigned servers, while administrators manage nodes and user accounts.",
         ],
       },
       {
