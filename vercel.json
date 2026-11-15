@@ -1,4 +1,24 @@
 {
+  "redirects": [
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "noxcoredev\\.is-a\\.dev" }],
+      "destination": "https://noxcoredev.xyz/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "noxcoredev-portfolio\\.vercel\\.app" }],
+      "destination": "https://noxcoredev.xyz/:path*",
+      "permanent": true
+    },
+    {
+      "source": "/:path*",
+      "has": [{ "type": "host", "value": "www\\.noxcoredev\\.xyz" }],
+      "destination": "https://noxcoredev.xyz/:path*",
+      "permanent": true
+    }
+  ],
   "rewrites": [
     {
       "source": "/blog/:slug",
