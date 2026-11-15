@@ -10,21 +10,24 @@
         const useDarkTheme = savedTheme === "dark" || (!savedTheme && window.matchMedia("(prefers-color-scheme: dark)").matches);
         document.documentElement.classList.toggle("dark", useDarkTheme);
         const savedLanguage = localStorage.getItem("language");
-        if (savedLanguage === "en" || savedLanguage === "en") document.documentElement.lang = savedLanguage;
+        const hasUserLanguagePreference = localStorage.getItem("languagePreference") === "true";
+        if (hasUserLanguagePreference && (savedLanguage === "en" || savedLanguage === "fr")) {
+          document.documentElement.lang = savedLanguage;
+        }
       } catch {
         // Preferences are initialized by the React app if storage is unavailable.
       }
     </script>
 
-    <title>NoxCoreDev (Othman) — DevOps, Web, App & AI. Bots WhatsApp/Telegram</title>
+    <title>NoxCoreDev (Othman) — Ceo As Xiven, Core. DevOps, Web, App & AI. Bots WhatsApp and Telegram</title>
 
     <meta
       name="description"
-      content="NoxCoreDev (Othman) — Developer autodidacte in automatisation, DevOps, Web, App & AI. Bots WhatsApp/Telegram, pipelines de déploiement, applications web."
+      content="NoxCoreDev (Othman) — Self-taught developer in automation, DevOps, web, apps, and AI. WhatsApp/Telegram bots, deployment pipelines, and web applications."
     />
 
     <link rel="icon" type="image/svg+xml" href="/logo-icon.svg" />
-    <link rel="canonical" href="https://noxcoredev.is-a.dev/" />
+    <link rel="canonical" href="https://noxcoredev.xyz/" />
     <meta name="google-site-verification" content="rjTGNcJbt_m1gYkDUkAG9FC87l0pHoilY2CwEnFuekU" />
     <meta name="theme-color" content="#4F5DF5" />
     <meta name="author" content="Othman (NoxCoreDev)" />
@@ -35,33 +38,33 @@
         "@graph": [
           {
             "@type": "WebSite",
-            "@id": "https://noxcoredev.is-a.dev/#website",
-            "url": "https://noxcoredev.is-a.dev/",
+            "@id": "https://noxcoredev.xyz/#website",
+            "url": "https://noxcoredev.xyz/",
             "name": "NoxCoreDev",
-            "publisher": { "@id": "https://noxcoredev.is-a.dev/#person" }
+            "publisher": { "@id": "https://noxcoredev.xyz/#person" }
           },
           {
             "@type": "Person",
-            "@id": "https://noxcoredev.is-a.dev/#person",
+            "@id": "https://noxcoredev.xyz/#person",
             "name": "Othman",
             "alternateName": "NoxCoreDev",
-            "url": "https://noxcoredev.is-a.dev/",
-            "jobTitle": "Développeur autodidacte en automatisation et DevOps",
-            "description": "Développeur autodidacte spécialisé en automatisation et DevOps, créateur de bots WhatsApp et Telegram, de pipelines de déploiement et d’applications web.",
+            "url": "https://noxcoredev.xyz/",
+            "jobTitle": "Self-taught developer specializing in automation and DevOps",
+            "description": "Self-taught developer specializing in automation and DevOps, creator of WhatsApp and Telegram bots, deployment pipelines, and web applications.",
             "knowsAbout": [
-              "Automatisation",
+              "Automation",
               "DevOps",
-              "Développement web",
-              "Bots WhatsApp",
-              "Bots Telegram"
+              "Web development",
+              "WhatsApp bots",
+              "Telegram bots"
             ],
             "sameAs": [
               "https://github.com/NoxCoreDev",
               "https://www.linkedin.com/in/NoxCoreDev",
               "https://www.x.com/NoxPrimeeeinc",
-              "https://www.instagram.com/noxprimeeeinc?vrfl=NmM3ZWFsd2t3cXdm",
+              "https://www.instagram.com/NoxCoreDev?",
               "https://youtube.com/@noxcoredev?si=YGqUJHTXHkSHr8lm",
-              "https://t.me/NoxCoreDev"
+              "https://t.me/Nox_chh"
             ]
           }
         ]
@@ -72,12 +75,12 @@
     <meta property="og:title" content="NoxCoreDev — Othman" />
     <meta
       property="og:description"
-      content="Développeur autodidacte en automatisation, DevOps, Web, App & AI Developer."
+      content="Self-taught developer specializing in automation, DevOps, web, apps, and AI. Building WhatsApp/Telegram bots, deployment pipelines, and web applications."
     />
-    <meta property="og:url" content="https://noxcoredev.is-a.dev/" />
-    <meta property="og:locale" content="fr_FR" />
-    <meta property="og:image" content="https://noxcoredev.is-a.dev/og-image.png" />
-    <meta property="og:image:secure_url" content="https://noxcoredev.is-a.dev/og-image.png" />
+    <meta property="og:url" content="https://noxcoredev.xyz/" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="https://noxcoredev.xyz/og-image.png" />
+    <meta property="og:image:secure_url" content="https://noxcoredev.xyz/og-image.png" />
     <meta property="og:image:type" content="image/png" />
     <meta property="og:image:width" content="1200" />
     <meta property="og:image:height" content="630" />
@@ -86,11 +89,11 @@
 
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content="NoxCoreDev — Othman" />
-    <meta name="twitter:image" content="https://noxcoredev.is-a.dev/og-image.png" />
+    <meta name="twitter:image" content="https://noxcoredev.xyz/og-image.png" />
     <meta name="twitter:image:alt" content="Logo NoxCoreDev — Othman" />
     <meta
       name="twitter:description"
-      content="Développeur autodidacte en automatisation, DevOps, Web, App & AI Developer."
+      content="Self-taught developer specializing in automation, DevOps, web, apps, and AI. Building WhatsApp/Telegram bots, deployment pipelines, and web applications."
     />
   </head>
 
