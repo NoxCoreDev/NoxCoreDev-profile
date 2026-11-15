@@ -1,4 +1,0 @@
-User-agent: *
-Allow: /
-
-Sitemap: https://noxcoredev.is-a.dev/sitemap.xml
