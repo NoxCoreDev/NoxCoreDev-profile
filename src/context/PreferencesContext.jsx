@@ -5,10 +5,13 @@ const PreferencesContext = createContext(null);
 
 function getInitialLanguage() {
   try {
-    return localStorage.getItem("language") === "en" ? "en" : "fr";
+    const savedLanguage = localStorage.getItem("language");
+    const hasUserPreference = localStorage.getItem("languagePreference") === "true";
+    if (hasUserPreference && (savedLanguage === "en" || savedLanguage === "fr")) return savedLanguage;
   } catch {
-    return "fr";
+    // English is the default when browser storage is unavailable.
   }
+  return "en";
 }
 
 function getInitialTheme() {
@@ -22,8 +25,18 @@ function getInitialTheme() {
 }
 
 export function PreferencesProvider({ children }) {
-  const [language, setLanguage] = useState(getInitialLanguage);
+  const [language, setLanguageState] = useState(getInitialLanguage);
   const [theme, setTheme] = useState(getInitialTheme);
+
+  const setLanguage = useCallback((nextLanguage) => {
+    if (nextLanguage !== "en" && nextLanguage !== "fr") return;
+    setLanguageState(nextLanguage);
+    try {
+      localStorage.setItem("languagePreference", "true");
+    } catch {
+      // The preference still works for the current page if storage is disabled.
+    }
+  }, []);
 
   useEffect(() => {
     document.documentElement.lang = language;
